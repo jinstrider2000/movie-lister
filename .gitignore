@@ -14,3 +14,8 @@
 !/tmp/.keep
 
 .byebug_history
+
+Gemfile.lock
+/.vscode
+/client/node_modules
+/client/package-lock.json
