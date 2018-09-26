@@ -15,7 +15,16 @@
 
 .byebug_history
 
-Gemfile.lock
+/Gemfile.lock
 /.vscode
 /client/node_modules
 /client/package-lock.json
+/client/.env.local
+/client/.env.development.local
+/client/.env.test.local
+/client/.env.production.local
+/client/coverage
+/client/build
+/client/npm-debug.log*
+/client/yarn-debug.log*
+/client/yarn-error.log*
