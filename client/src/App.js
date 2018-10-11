@@ -7,11 +7,8 @@ const App = (props) => {
     <BrowserRouter>
       <React.Fragment>
         <NavBar/>
-        <br/>
         <Route exact path="/" component={Home}/>
-        <Route exact path="/actors" component={Actors}/>
-        <Route exact path="/directors" component={Directors}/>
-        <Route exact path="/movies" component={Movies}/>
+        <Route exact path="/history" component={SearchHistory}/>
       </React.Fragment>
     </BrowserRouter>
   );
