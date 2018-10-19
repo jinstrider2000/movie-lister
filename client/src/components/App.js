@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route } from "react-router-dom";
-import './App.css';
+import { connect } from "react-redux";
+import HistoryList from './HistoryList';
+import '../css/App.css'; 
 
 const App = (props) => {
   return (
@@ -8,7 +10,7 @@ const App = (props) => {
       <React.Fragment>
         <NavBar/>
         <Route exact path="/" component={Home}/>
-        <Route exact path="/history" component={SearchHistory}/>
+        <Route exact path="/history" component={HistoryList}/>
       </React.Fragment>
     </BrowserRouter>
   );
