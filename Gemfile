@@ -16,8 +16,10 @@ gem 'puma', '~> 3.7'
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
-# Use ActiveModel has_secure_password
-gem 'bcrypt', '~> 3.1.7'
+# Using devise for authentication on this project
+gem 'devise', '~> 4.3'
+gem 'rails-i18n'
+gem "i18n-js", '~> 3.0.11'
 gem 'active_model_serializers', '~> 0.10.7'
 
 # Use Capistrano for deployment
