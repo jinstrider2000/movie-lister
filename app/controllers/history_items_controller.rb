@@ -26,7 +26,7 @@ class HistoryItemsController < ApplicationController
   def index
     @user = User.find_by(id: params[:user_id])
     if @user
-      render json: @user.history_items
+      render json: @user.history_items, each_serializer: HistoryItemSerializer
     else
       head :not_found
     end
