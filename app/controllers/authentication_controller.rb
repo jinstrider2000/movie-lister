@@ -5,7 +5,7 @@ class AuthenticationController < ApplicationController
     if @user && @user.authenticate(params[:password])
       render json: {user_id: @user.id}, status: 200
     else
-      head :unauthorized
+      render json: {user_id: nil}, status: 404
     end
   end
 
