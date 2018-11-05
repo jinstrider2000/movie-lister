@@ -5,7 +5,7 @@ import HistoryList from '../components/HistoryList';
 import NavBar from '../components/NavBar';
 import Home from '../components/Home';
 import '../css/App.css';
-const imdb = require('imdb-api');
+window.imdb = require('imdb-api');
 
 class App extends Component {
   render() {
