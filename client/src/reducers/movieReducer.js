@@ -1,2 +1,10 @@
-// FETCH_MOVIE
-const loadMovie = () => ({type: "LOAD_MOVIE"})
+export default (state={}, action) => {
+  switch (action.type) {
+    case "LOAD_MOVIE":
+      return action.payload;
+    case "SIGN_OUT":
+      return {};
+    default:
+      return state;
+  }
+}

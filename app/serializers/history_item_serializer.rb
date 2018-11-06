@@ -1,3 +1,3 @@
 class HistoryItemSerializer < ActiveModel::Serializer
-  attributes :id, :movie_name, :imdb_id
+  attributes :id, :title, :imdbid
 end

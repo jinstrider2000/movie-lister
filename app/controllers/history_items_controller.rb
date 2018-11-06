@@ -2,7 +2,7 @@ class HistoryItemsController < ApplicationController
 
   def create
     user = User.find_by(id: params[:user_id])
-    if user && !@user.history_items.find_by(imdb_id: params[:imdb_id])
+    if user && !@user.history_items.find_by(imdbid: params[:imdbid])
       history_item = user.history_items.create(history_params)
       render json: history_item, status: 201
     elsif user
@@ -14,7 +14,7 @@ class HistoryItemsController < ApplicationController
 
   def destroy
     user = User.find_by(id: params[:user_id])
-    history_item = user ? user.history_items.find_by(imdb_id: params[:imdb_id]) : nil
+    history_item = user ? user.history_items.find_by(imdbid: params[:imdbid]) : nil
     if user && history_item
       history_item.destroy
       head :ok
@@ -36,7 +36,7 @@ class HistoryItemsController < ApplicationController
   private
 
   def history_params
-      params.permit(:movie_name, :imdb_id)
+      params.permit(:title, :imdbid)
   end
   
 end
