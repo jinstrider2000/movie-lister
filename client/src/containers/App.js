@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import HistoryList from '../components/HistoryList';
 import NavBar from '../components/NavBar';
 import Home from '../components/Home';
+import SearchContainer from '../containers/SearchContainer'
 import '../css/App.css';
 window.imdb = require('imdb-api');
 
@@ -15,6 +16,7 @@ class App extends Component {
           <NavBar/>
           <Route exact path="/" component={Home}/>
           <Route exact path="/history" component={HistoryList}/>
+          <Route path="/search" component={SearchContainer}/>
         </React.Fragment>
       </BrowserRouter>
     );
@@ -28,7 +30,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {}
+  return {
+
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

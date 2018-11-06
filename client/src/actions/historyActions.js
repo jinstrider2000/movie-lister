@@ -17,7 +17,7 @@ export const loadHistory = (userId) => {
 export const addHistory = (userId, {title, imdbid}) => {
   return (
     (dispatch, getState) => {
-      if (!getState().historyInfo.history.find((historyItem) => historyItem.imdbid === getState().movie.imdbid)) {
+      if (!getState().historyInfo.history.find(historyItem => historyItem.imdbid === imdbid)) {
         fetch(`/users/${userId}/history`, {method: "POST", body: {title, imdbid} , headers: {'Content-Type': 'application/json'}}).then(response => {
           if (response.status === 201) {
             return response.json();

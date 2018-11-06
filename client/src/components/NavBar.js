@@ -1,5 +1,6 @@
 import React from 'react';
-import {Navbar, Nav, FormControl, Button} from 'react-bootstrap';
+import SearchContainer from '../containers/SearchContainer';
+import {Navbar, Nav} from 'react-bootstrap';
 
 const NavBar = () => {
   return (
@@ -11,10 +12,7 @@ const NavBar = () => {
           <Navbar.Link href="/history">History</Navbar.Link>
         </Nav> 
       </Navbar.Collapse>
-      <Navbar.Form>
-        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-        <Button variant="outline-success">Search</Button>
-      </Navbar.Form>
+      <SearchContainer/>
     </Navbar>
   );
 }
