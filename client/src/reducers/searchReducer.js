@@ -1,8 +1,8 @@
-export default (state={currentSearchObj: undefined, searchTerm: "", results: [], totalResults: 0, totalLoaded: 0, error: false, errorMessage: ""}, action) => {
+export default (state={currentSearchObj: undefined, currentSearchTerm: "", results: [], totalResults: 0, totalLoaded: 0, error: false, errorMessage: ""}, action) => {
   switch (action.type) {
     case "LOAD_SEARCH_RESULTS":
-      if (!state.currentSearchObj || action.searchTerm !== state.searchTerm) {
-        return {...state, currentSearchObj: action.currentSearchObj, searchTerm: action.searchTerm, results: action.results, totalResults: action.totalResults, totalLoaded: action.results.length}
+      if (!state.currentSearchObj || action.searchTerm !== state.currentSearchTerm) {
+        return {...state, currentSearchObj: action.currentSearchObj, searchTerm: action.searchTerm, results: action.results, totalResults: action.currentSearchObj.totalresults, totalLoaded: action.results.length}
       } else {
         return {...state, currentSearchObj: action.currentSearchObj, results: [...state.results, ...action.results], totalLoaded: state.totalLoaded + action.results.length}
       }
