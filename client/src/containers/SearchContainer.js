@@ -1,9 +1,39 @@
-import React from 'react';
-import {Navbar, FormControl, Button} from 'react-bootstrap';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {Navbar, FormControl} from 'react-bootstrap';
 
-const SearchContainer = (props) => (<Navbar.Form>
-  <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-  <Button variant="outline-success">Search</Button>
-</Navbar.Form>)
+class SearchContainer extends Component {
 
-export default SearchContainer
+  constructor(props) {
+    super(props);
+    this.state = {searchTerm: ""};
+  }
+
+  updateSearchTerm = (event) => {
+    this.setState({searchTerm: event.target.value});
+    
+  }
+
+  render() {
+    return (
+      <Navbar.Form>
+        <FormControl type="text" placeholder="Search" className="mr-sm-2" value={this.state.searchTerm} onChange={this.updateSearchTerm} />
+      </Navbar.Form>
+    );
+  }
+
+}
+
+const mapStateToProps = (state) => {
+  return {
+    currentSearchPaginator: state.searchResults.currentSearchPaginator
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchContainer);

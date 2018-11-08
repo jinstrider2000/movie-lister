@@ -8,6 +8,7 @@ import SearchResultList from '../components/SearchResultList'
 import MovieInfo from '../components/MovieInfo';
 import '../css/App.css';
 window.imdb = require('imdb-api');
+window.client = new window.imdb.Client({apiKey: "d7196e79"});
 
 class App extends Component {
   render() {
