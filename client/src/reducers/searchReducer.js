@@ -1,17 +1,17 @@
-export default (state={currentSearchPaginator: undefined, currentSearchTerm: "", results: [], totalResults: 0, totalLoaded: 0, error: false, errorMessage: ""}, action) => {
+export default (state={currentSearchPaginator: null, currentSearchTerm: "", results: [], totalResults: 0, totalLoaded: 0, error: false, errorMessage: ""}, action) => {
   switch (action.type) {
-    case "LOAD_SEARCH_RESULTS":
-      if (!state.currentSearchPaginator || action.searchTerm !== state.currentSearchTerm) {
-        return {...state, currentSearchPaginator: action.currentSearchPaginator, searchTerm: action.searchTerm, results: action.results, totalResults: action.currentSearchPaginator.totalresults, totalLoaded: action.results.length};
+    case "GET_SEARCH_RESULTS":
+      if (!state.currentSearchPaginator || action.newSearchTerm !== state.currentSearchTerm) {
+        return {currentSearchPaginator: action.newSearchPaginator, currentSearchTerm: action.newSearchTerm, results: action.results, totalResults: action.newSearchPaginator.totalresults, totalLoaded: action.results.length, error: false, errorMessage: ""};
       } else {
-        return {...state, currentSearchPaginator: action.currentSearchPaginator, results: [...state.results, ...action.results], totalLoaded: state.totalLoaded + action.results.length};
+        return {...state, currentSearchPaginator: action.newSearchPaginator, results: [...state.results, ...action.results], totalLoaded: state.totalLoaded + action.results.length, error: false, errorMessage: ""};
       }
     case "DISPLAY_SEARCH_ERROR":
-      return {currentSearchPaginator: undefined, searchTerm: "", results: [], totalResults: 0, totalLoaded: 0, error: true, errorMessage: action.message};
+      return {currentSearchPaginator: null, currentSearchTerm: action.newSearchTerm, results: [], totalResults: 0, totalLoaded: 0, error: true, errorMessage: action.message};
     case "CLEAR_SEARCH":
-    case "LOAD_MOVIE":
+    case "GET_MOVIE":
     case "SIGN_OUT":
-      return {currentSearchPaginator: undefined, searchTerm: "", results: [], totalResults: 0, totalLoaded: 0, error: false, errorMessage: ""};
+      return {currentSearchPaginator: null, currentSearchTerm: "", results: [], totalResults: 0, totalLoaded: 0, error: false, errorMessage: ""};
     default:
       return state;
   }

@@ -5,8 +5,8 @@ import authenticationReducer from './authenticationReducer';
 import movieReducer from './movieReducer';
 
 export default combineReducers({
-  historyInfo: historyReducer,
   user: authenticationReducer,
-  movie: movieReducer,
-  searchResults: searchReducer
+  historyInfo: historyReducer,
+  searchResults: searchReducer,
+  movie: movieReducer
 })

@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchContainer from '../containers/SearchContainer';
+import SearchBar from '../containers/SearchBar';
 import {Navbar, Nav} from 'react-bootstrap';
 
 const NavBar = () => {
@@ -12,7 +12,7 @@ const NavBar = () => {
           <Navbar.Link href="/history">History</Navbar.Link>
         </Nav> 
       </Navbar.Collapse>
-      <SearchContainer/>
+      <SearchBar/>
     </Navbar>
   );
 }
