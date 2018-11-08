@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchBar from '../containers/SearchBar';
+import SearchBar from './SearchBar';
 import {Navbar, Nav} from 'react-bootstrap';
 
 const NavBar = () => {
