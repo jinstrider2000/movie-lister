@@ -2,23 +2,25 @@ import React, {Component} from 'react';
 import { BrowserRouter, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import HistoryContainer from './HistoryContainer';
+import SearchContainer from './SearchContainer'
+import MovieShow from '../components/MovieShow';
 import NavBar from '../components/NavBar';
 import Home from '../components/Home';
-import SearchResultList from '../components/SearchResultList'
-import MovieContainer from './MovieContainer';
 import '../css/App.css';
-window.imdb = require('imdb-api');
-window.client = new window.imdb.Client({apiKey: "d7196e79"});
 
 class App extends Component {
+
+  signedIn = () => !!this.props.userId;
+
   render() {
     return (
       <BrowserRouter>
         <React.Fragment>
           <NavBar/>
+          <SearchContainer/>
           <Route exact path="/" component={Home}/>
           <Route exact path="/history" component={HistoryContainer}/>
-          <Route path="/movie" component={MovieContainer}/>
+          <Route path="/movie" component={MovieShow}/>
         </React.Fragment>
       </BrowserRouter>
     );
@@ -27,7 +29,7 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    userId: state.user.id
+    userId: state.user.id,
   }
 }
 

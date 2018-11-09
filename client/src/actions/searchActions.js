@@ -1,5 +1,4 @@
-const imdb = require('imdb-api');
-const client = new imdb.Client({apiKey: "d7196e79"});
+import {client} from '../imdb-api-client/client';
 
 export const getSearchResults = (searchTerm) => {
   return (
