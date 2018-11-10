@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import { getSearchResults} from '../actions/searchActions';
 import SearchResultList from '../components/SearchResultList'
 
 class SearchContainer extends Component {
@@ -10,15 +11,21 @@ class SearchContainer extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
-    
+    results: state.searchResults.results,
+    searchTerm: state.searchResults.currentSearchTerm,
+    searchPaginator: state.searchResults.currentSearchPaginator,
+    totalResults: state.searchResults.totalResults,
+    totalLoaded: state.searchResults.totalLoaded,
+    error: state.searchResults.error,
+    errorMessage: state.searchResults.errorMessage
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-
+    getMoreResults: (searchTerm) => dispatch(getSearchResults(searchTerm))
   }
 }
 
