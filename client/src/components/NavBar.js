@@ -16,8 +16,8 @@ const NavBar = () => {
           <NavItem eventKey={1} href="/history">
             History
           </NavItem>
-          <SearchBar/>
         </Nav>
+        <SearchBar/>
       </Navbar.Collapse>
     </Navbar>
   );
