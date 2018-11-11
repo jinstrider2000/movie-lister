@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Navbar, FormControl} from 'react-bootstrap';
+import {Navbar, FormControl, FormGroup} from 'react-bootstrap';
 import { getSearchResults, clearSearch } from '../actions/searchActions';
 
 class SearchBar extends Component {
@@ -31,9 +31,11 @@ class SearchBar extends Component {
 
   render() {
     return (
-      <Navbar.Form>
-        <FormControl type="text" placeholder="Search" className="mr-sm-2" value={this.state.searchTerm} onChange={this.updateSearchTerm} />
-      </Navbar.Form>
+      <Navbar.Form pullRight>
+      <FormGroup>
+        <FormControl type="text" placeholder="Search" onChange={this.updateSearchTerm} value={this.state.searchTerm} />
+      </FormGroup>
+    </Navbar.Form>
     );
   }
 

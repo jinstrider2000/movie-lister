@@ -1,18 +1,24 @@
 import React from 'react';
 import SearchBar from './SearchBar';
-import {Navbar, Nav} from 'react-bootstrap';
+import {Navbar, Nav, NavItem} from 'react-bootstrap';
 
 const NavBar = () => {
   return (
-    <Navbar fluid={true}>
-      <Navbar.Brand>Movie Lister</Navbar.Brand>
+    <Navbar inverse collapseOnSelect>
+      <Navbar.Header>
+        <Navbar.Brand>
+          <a href="#home">Movie Lister</a>
+        </Navbar.Brand>
+        <Navbar.Toggle/>
+      </Navbar.Header>
       <Navbar.Collapse>
         <Nav>
-          <Navbar.Link href="/">Home</Navbar.Link>
-          <Navbar.Link href="/history">History</Navbar.Link>
-        </Nav> 
+          <NavItem eventKey={1} href="/history">
+            History
+          </NavItem>
+          <SearchBar/>
+        </Nav>
       </Navbar.Collapse>
-      <SearchBar/>
     </Navbar>
   );
 }
