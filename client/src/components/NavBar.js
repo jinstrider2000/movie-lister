@@ -4,7 +4,7 @@ import {Navbar, Nav, NavItem} from 'react-bootstrap';
 
 const NavBar = () => {
   return (
-    <Navbar inverse collapseOnSelect>
+    <Navbar inverse collapseOnSelect fluid>
       <Navbar.Header>
         <Navbar.Brand>
           <a href="#home">Movie Lister</a>
@@ -12,12 +12,12 @@ const NavBar = () => {
         <Navbar.Toggle/>
       </Navbar.Header>
       <Navbar.Collapse>
-        <Nav>
+        <SearchBar/>
+        <Nav pullRight>
           <NavItem eventKey={1} href="/history">
             History
           </NavItem>
         </Nav>
-        <SearchBar/>
       </Navbar.Collapse>
     </Navbar>
   );
