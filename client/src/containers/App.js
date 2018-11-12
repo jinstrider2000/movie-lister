@@ -6,6 +6,7 @@ import SearchContainer from './SearchContainer'
 import MovieShow from '../components/MovieShow';
 import NavBar from '../components/NavBar';
 import Home from '../components/Home';
+import NotFound from '../components/NotFound';
 import '../css/App.css';
 
 class App extends Component {
@@ -17,10 +18,15 @@ class App extends Component {
       <BrowserRouter>
         <React.Fragment>
           <NavBar/>
-          <SearchContainer/>
-          <Route exact path="/" component={Home}/>
-          <Route exact path="/history" component={HistoryContainer}/>
-          <Route path="/movie" component={MovieShow}/>
+          <main style={{position: "relative"}}>
+            <SearchContainer/>
+            <Switch>
+              <Route exact path="/" component={Home}/>
+              <Route exact path="/history" component={HistoryContainer}/>
+              <Route path="/movie" component={MovieShow}/>
+              <Route component={NotFound}/>
+            </Switch>
+          </main>
         </React.Fragment>
       </BrowserRouter>
     );
