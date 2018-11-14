@@ -6,7 +6,8 @@ import SearchResultList from '../components/SearchResultList'
 class SearchContainer extends Component {
   render() {
     return (
-      <div >SearchContainer</div>
+      <div id="search-container">
+      </div>
     );
   }
 }

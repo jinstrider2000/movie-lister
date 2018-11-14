@@ -1,0 +1,94 @@
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+main {
+  position: relative;
+  padding: 30px 40px 0;
+}
+
+#search-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+}
+
+.background-opaque-fade-in {
+  animation: search-results-fade-in 2s linear;
+}
+
+#metacritic-logo {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+#metacritic-logo + h3 {
+  display: inline-block;
+}
+
+#movie-details {
+  text-align: center;
+}
+
+#movie-poster {
+  display: inline;
+}
+
+.error-message {
+  text-align: center;
+  color: red;
+}
+
+.navbar {
+  margin-bottom: 0px;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes search-results-fade-in {
+  from { background-color: rgba(200, 200, 200, 0); }
+  to { background-color: rgba(200, 200, 200, .8);}
+}
+
+@media (min-width: 768px) {
+  .navbar {
+      border-radius: 0;
+  }
+}

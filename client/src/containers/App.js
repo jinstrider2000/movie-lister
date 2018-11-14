@@ -7,7 +7,7 @@ import MovieShow from '../components/MovieShow';
 import NavBar from '../components/NavBar';
 import Home from '../components/Home';
 import NotFound from '../components/NotFound';
-import '../css/App.css';
+import '../assets/css/App.css';
 
 class App extends Component {
 
@@ -18,7 +18,7 @@ class App extends Component {
       <BrowserRouter>
         <React.Fragment>
           <NavBar/>
-          <main style={{position: "relative"}}>
+          <main>
             <SearchContainer/>
             <Switch>
               <Route exact path="/" component={Home}/>
