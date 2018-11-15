@@ -24,7 +24,7 @@ class Movie extends Component {
         <React.Fragment>
           <img id="movie-poster" src={this.state.info.poster} alt="Movie Poster"/>
           <h1>{this.state.info.title}</h1>
-          <h2>(A {this.state.info.production} Release)</h2>
+          {this.state.info.production !== "N/A" ? <h2>(A {this.state.info.production} Release)</h2> : null }
           <h3>Directed by</h3>
           <h4>{this.state.info.director}</h4>
           <h3>Written by</h3>
