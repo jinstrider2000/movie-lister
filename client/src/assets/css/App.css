@@ -16,18 +16,24 @@ main {
 }
 
 #search-container {
-  position: absolute;
   top: 0px;
   left: 0px;
-  z-index: 999;
   width: 100%;
   height: 100%;
   color: rgba(0, 0, 0, 0);
   overflow: auto;
 }
 
-.background-text-fade-in {
+#transparency {
+  z-index: -1;
+}
+
+.text-fade-in {
   animation: search-results-fade-in-text 1s linear .5s forwards;
+}
+
+.background-fade-in {
+  animation: search-results-fade-in-background 1s linear .5s forwards;
 }
 
 #metacritic-logo {
@@ -42,10 +48,6 @@ main {
   display: inline-block;
 }
 
-#movie-details {
-  text-align: center;
-}
-
 #movie-poster {
   display: inline;
 }
@@ -55,27 +57,23 @@ main {
   color: red;
 }
 
-.navbar {
-  margin-bottom: 0px;
-}
-
 .main-abs-ps {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: -2;
   width: 100%;
-  height: 100%;
   padding: 30px 40px 0;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+@keyframes search-results-fade-in-text {
+  from {color: rgba(0, 0, 0, 0);}
+  to {color: rgba(0, 0, 0, 1);}
 }
 
-@keyframes search-results-fade-in-text {
-  from {color: rgba(0, 0, 0, 0); background-color: rgba(150, 150, 150, 0);}
-  to {color: rgba(0, 0, 0, 1); background-color: rgba(150, 150, 150, .8);}
+@keyframes search-results-fade-in-background {
+  from {background-color: rgba(255, 255, 255, 0);}
+  to {background-color: rgba(255, 255, 255, .6);}
 }
 
 @media (min-width: 768px) {

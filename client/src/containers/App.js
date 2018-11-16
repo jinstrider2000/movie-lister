@@ -18,14 +18,16 @@ class App extends Component {
       <BrowserRouter>
         <React.Fragment>
           <NavBar/>
-          <main>
+          <main className="text-center">
             <SearchContainer/>
-            <Switch>
-              <Route exact path="/" component={Home}/>
-              <Route exact path="/history" component={HistoryContainer}/>
-              <Route path="/movie" component={MovieShow}/>
-              <Route component={NotFound}/>
-            </Switch>
+            <div id="transparency" className={this.props.searchResults || this.props.searchError ? "background-fade-in": null}>
+              <Switch>
+                <Route exact path="/" component={Home}/>
+                <Route exact path="/history" component={HistoryContainer}/>
+                <Route path="/movie" component={MovieShow}/>
+                <Route component={NotFound}/>
+              </Switch>
+            </div>
           </main>
         </React.Fragment>
       </BrowserRouter>
@@ -36,6 +38,8 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     userId: state.user.id,
+    searchResults: state.searchResults.results,
+    searchError: state.searchResults.error
   }
 }
 
