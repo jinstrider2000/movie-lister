@@ -7,7 +7,7 @@ import MovieShow from '../components/MovieShow';
 import NavBar from '../components/NavBar';
 import Home from '../components/Home';
 import NotFound from '../components/NotFound';
-import '../assets/css/App.css';
+import '../assets/stylesheets/App.css';
 
 class App extends Component {
 
@@ -20,14 +20,12 @@ class App extends Component {
           <NavBar/>
           <main className="text-center">
             <SearchContainer/>
-            <div id="transparency" className={this.props.searchResults || this.props.searchError ? "background-fade-in": null}>
-              <Switch>
-                <Route exact path="/" component={Home}/>
-                <Route exact path="/history" component={HistoryContainer}/>
-                <Route path="/movie" component={MovieShow}/>
-                <Route component={NotFound}/>
-              </Switch>
-            </div>
+            <Switch>
+              <Route exact path="/" component={Home}/>
+              <Route exact path="/history" component={HistoryContainer}/>
+              <Route path="/movie" component={MovieShow}/>
+              <Route component={NotFound}/>
+            </Switch>
           </main>
         </React.Fragment>
       </BrowserRouter>
@@ -38,8 +36,6 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     userId: state.user.id,
-    searchResults: state.searchResults.results,
-    searchError: state.searchResults.error
   }
 }
 

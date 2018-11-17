@@ -1,6 +1,6 @@
 export const loadHistory = (userId) => {
   return (
-    (dispatch) => {
+    (dispatch, getState) => {
       if (!getState().historyInfo.retreived) {
         fetch(`/users/${userId}/history`).then(response => {
           if(response.ok) {
@@ -27,7 +27,7 @@ export const addHistory = (userId, {title, imdbid}) => {
             throw new Error("User not found");
           }
         }).then(response => {
-          if (typeof(response) === object) {
+          if (typeof(response) === "object") {
             dispatch({type: "ADD_HISTORY", payload: response});
           }
         }).catch(error => console.error('Error: ', error));

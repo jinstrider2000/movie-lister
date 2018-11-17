@@ -7,7 +7,7 @@ class SearchContainer extends Component {
   render() {
     let output;
     if (this.props.searchPaginator) {
-      output = <h1>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</h1>
+      output = <h1>There are search results to show!</h1>
     } else if (this.props.error){
       output = <h1>There is an error, no results</h1>;
     } else {
