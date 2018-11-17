@@ -25,7 +25,7 @@ class Movie extends Component {
       output = <h3 className="error-message">Error: {this.state.errorMessage}</h3>
     } else {
       output = 
-        <div id="movie-details" className="main-abs-ps">
+        <div id="movie-details" className="main-abs-ps movie-slide-in-container">
           <Transparency id="transparency-search-results" condition={this.props.searchActivity || this.props.searchError} classes="background-fade"/>
           <Transparency id="transparency-movie-info" condition={true} classes="movie-slide-in-transparency"/>
           <img id="movie-poster" src={this.state.info.poster !== "N/A" ? this.state.info.poster : posterPlaceHolder} alt="Movie Poster"/>
