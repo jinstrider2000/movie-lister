@@ -3,7 +3,7 @@ import Transparency from './Transparency';
 
 const Home = (props) => (
   <div className="main-abs-ps">
-    <Transparency/>
+    <Transparency id="transparency-search-results" condition={props.searchHappening} classes="background-fade" />
     <h1>Home</h1>
   </div>
 )

@@ -12,6 +12,7 @@ import '../assets/stylesheets/App.css';
 class App extends Component {
 
   signedIn = () => !!this.props.userId;
+  searchHappening = () => this.props.searchActivity || this.props.searchError; 
 
   render() {
     return (
@@ -21,10 +22,10 @@ class App extends Component {
           <main className="text-center">
             <SearchContainer/>
             <Switch>
-              <Route exact path="/" component={Home}/>
-              <Route exact path="/history" component={HistoryContainer}/>
-              <Route path="/movie" component={MovieShow}/>
-              <Route component={NotFound}/>
+              <Route exact path="/" render={(routerProps) => <Home searchHappening={this.searchHappening} {...routerProps}/>}/>
+              <Route exact path="/history" render={(routerProps) => <HistoryContainer searchHappening={this.searchHappening} {...routerProps}/>}/>
+              <Route path="/movie" render={(routerProps) => <MovieShow searchHappening={this.searchHappening} {...routerProps}/>}/>
+              <Route render={(routerProps) => <NotFound searchHappening={this.searchHappening} {...routerProps}/>}/>
             </Switch>
           </main>
         </React.Fragment>
@@ -36,6 +37,8 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     userId: state.user.id,
+    searchActivity: state.searchResults.currentSearchPaginator,
+    searchError: state.searchResults.error
   }
 }
 
