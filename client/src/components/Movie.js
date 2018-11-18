@@ -27,7 +27,7 @@ class Movie extends Component {
       output = 
         <div id="movie-details" className="main-abs-ps movie-slide-in-container">
           {console.log(this.state.info)}
-          <Transparency id="transparency-search-results" condition={this.props.searchActivity || this.props.searchError} classes="background-fade"/>
+          <Transparency id="transparency-search-results" condition={this.props.searchHappening} classes="background-fade"/>
           <Transparency id="transparency-movie-info" condition={true} classes="movie-slide-in-transparency"/>
           <img id="movie-poster" src={this.state.info.poster !== "N/A" ? this.state.info.poster : posterPlaceHolder} alt="Movie Poster"/>
           <h1>{this.state.info.title}</h1>
@@ -51,8 +51,6 @@ class Movie extends Component {
 const mapStateToProps = (state) => {
   return {
     userId: state.user.id,
-    searchActivity: state.searchResults.currentSearchPaginator,
-    searchError: state.searchResults.error
   }
 }
 
