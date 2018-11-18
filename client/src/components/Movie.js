@@ -35,7 +35,7 @@ class Movie extends Component {
           {this.state.info.director !== "N/A" ? <React.Fragment><h3>Directed by</h3><h4>{this.state.info.director}</h4></React.Fragment> : null}
           {this.state.info.writer !== "N/A" ? <React.Fragment><h3>Written by</h3><h4>{this.state.info.writer}</h4></React.Fragment> : null}
           {this.state.info.actors !== "N/A" ? <React.Fragment><h3>Starring</h3><h4>{this.state.info.actors}</h4></React.Fragment> : null}
-          {this.state.info.plot !== "N/A" ? <React.Fragment><h3>Synopsis</h3><h4>{this.state.info.plot}</h4></React.Fragment> : null}
+          {this.state.info.plot !== "N/A" ? <React.Fragment><h3>Synopsis</h3><h4 id="synopsis">{this.state.info.plot}</h4></React.Fragment> : null}
           {this.state.info.rated !== "N/A" ? <React.Fragment><h3>MPAA Rating</h3><h4>{this.state.info.rated}</h4></React.Fragment> : null}
           {this.state.info.genres !== "N/A" ? <React.Fragment><h3>Genre(s)</h3><h4>{this.state.info.genres}</h4></React.Fragment> : null}
           {this.state.info.runtime !== "N/A" ? <React.Fragment><h3>Running Time</h3><h4>{this.state.info.runtime}</h4></React.Fragment> : null}

@@ -40,6 +40,11 @@ main {
   z-index: 1;
 }
 
+#synopsis {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .movie-slide-in-container {
   animation: container-slide-in 1s linear forwards;
 }
@@ -111,5 +116,9 @@ main {
 @media (min-width: 768px) {
   .navbar {
       border-radius: 0;
+  }
+
+  #synopsis {
+    width: 75%;
   }
 }
