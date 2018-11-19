@@ -5,6 +5,7 @@ import {addHistory} from '../actions/historyActions';
 import Transparency from '../components/Transparency';
 import metaCriticImg from "../assets/images/metacritic.svg.png"
 import posterPlaceHolder from '../assets/images/film-poster-placeholder.png';
+import loadingGif from '../assets/images/loading.gif';
 
 class Movie extends Component {
 
@@ -20,10 +21,11 @@ class Movie extends Component {
   render() {
     let output;
     if (this.state.loading) {
-      output = <h3 className="text-center">Loading...</h3>
+      output = <img id="loading-movie-details" src={loadingGif}/>
     } else if (this.state.error) {
       output = <h3 className="error-message">Error: {this.state.errorMessage}</h3>
     } else {
+      console.log(this.state.info);
       output = 
         <div id="movie-details" className="main-abs-ps movie-slide-in-container">
           {console.log(this.state.info)}
@@ -39,7 +41,7 @@ class Movie extends Component {
           {this.state.info.rated !== "N/A" ? <React.Fragment><h3>MPAA Rating</h3><h4>{this.state.info.rated}</h4></React.Fragment> : null}
           {this.state.info.genres !== "N/A" ? <React.Fragment><h3>Genre(s)</h3><h4>{this.state.info.genres}</h4></React.Fragment> : null}
           {this.state.info.runtime !== "N/A" ? <React.Fragment><h3>Running Time</h3><h4>{this.state.info.runtime}</h4></React.Fragment> : null}
-          {this.state.info.released !== "N/A" ? <React.Fragment><h3>Released</h3><h4>{typeof(this.state.info.released) === "string" ? this.state.info.released : this.state.info.released.toLocaleDateString()}</h4></React.Fragment> : null}
+          {this.state.info.released !== undefined ? <React.Fragment><h3>Released</h3><h4>{this.state.info.released.toLocaleDateString()}</h4></React.Fragment> : null}
           {this.state.info.awards !== "N/A" ? <React.Fragment><h3>Awards</h3><h4>{this.state.info.awards}</h4></React.Fragment> : null}
           {this.state.info.metascore !== "N/A" ? <React.Fragment><img id="metacritic-logo" src={metaCriticImg} alt="Metacritic Logo"/><h3>Metacritic Score</h3><h4>{this.state.info.metascore}</h4></React.Fragment> : null}
       </div>
