@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
 import {client} from '../imdb-api-client/client';
 import {addHistory} from '../actions/historyActions';
 import metaCriticImg from "../assets/images/metacritic.svg.png"
@@ -13,19 +12,26 @@ class Movie extends Component {
     super(props);
     this.state = {info: {}, loading: true, error: false, errorMessage: ""};
   }
+
+  getMovieInfo = () => {
+    client.get({id: this.props.match.params.imdbId}).then(movieInfo => this.setState({info: movieInfo, loading: false, error: false})).catch(error => this.setState({loading: false, info: {}, error: true, errorMessage: error.message}));
+  }
   
   componentDidMount() {
-    client.get({id: this.props.match.params.imdbId}).then(movieInfo => this.setState({info: movieInfo, loading: false, error: false})).catch(error => this.setState({loading: false, info: {}, error: true, errorMessage: error.message}));
+    this.getMovieInfo();
+  }
+
+  componentDidUpdate() {
+    // this.getMovieInfo();
   }
 
   render() {
     let output;
-    if (this.state.loading) {
+    if (this.state.loading ) {
       output = <img id="loading-movie-details" src={loadingGif} alt="loading..."/>
     } else if (this.state.error) {
       output = <h3 className="error-message">Error: {this.state.errorMessage}</h3>
     } else {
-      console.log(this.state.info);
       output = 
         <div id="movie-details" className={this.props.searchActivity || this.props.searchError ? "main-abs-ps movie-slide-in background-fade": "main-abs-ps movie-slide-in"}>
           {console.log(this.state.info)}
@@ -62,4 +68,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Movie))
+export default connect(mapStateToProps,mapDispatchToProps)(Movie)
