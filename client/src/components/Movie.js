@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 import {client} from '../imdb-api-client/client';
 import {addHistory} from '../actions/historyActions';
-import Transparency from '../components/Transparency';
 import metaCriticImg from "../assets/images/metacritic.svg.png"
 import posterPlaceHolder from '../assets/images/film-poster-placeholder.png';
 import loadingGif from '../assets/images/loading.gif';
@@ -27,10 +27,8 @@ class Movie extends Component {
     } else {
       console.log(this.state.info);
       output = 
-        <div id="movie-details" className="main-abs-ps movie-slide-in-container">
+        <div id="movie-details" className={this.props.searchActivity || this.props.searchError ? "main-abs-ps movie-slide-in background-fade": "main-abs-ps movie-slide-in"}>
           {console.log(this.state.info)}
-          <Transparency id="transparency-search-results" condition={this.props.searchHappening} classes="background-fade"/>
-          <Transparency id="transparency-movie-info" condition={true} classes="movie-slide-in-transparency"/>
           <img id="movie-poster" src={this.state.info.poster !== "N/A" ? this.state.info.poster : posterPlaceHolder} alt="Movie Poster"/>
           <h1>{this.state.info.title}</h1>
           {this.state.info.production !== "N/A" ? <h2>(A {this.state.info.production} Release)</h2> : null }
@@ -53,6 +51,8 @@ class Movie extends Component {
 const mapStateToProps = (state) => {
   return {
     userId: state.user.id,
+    searchActivity: state.searchResults.currentSearchPaginator,
+    searchError: state.searchResults.error
   }
 }
 
@@ -62,4 +62,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Movie)
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Movie))

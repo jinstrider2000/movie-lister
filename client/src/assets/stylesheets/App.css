@@ -23,34 +23,7 @@ main {
   height: 100%;
   overflow: auto;
   color: rgba(0, 0, 0, 0);
-  z-index: 3;
-}
-
-#transparency-search-results {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 4;
-}
-
-#transparency-movie-info {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   z-index: 1;
-}
-
-.transparency-search-result-item {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 6;
 }
 
 #synopsis {
@@ -58,15 +31,14 @@ main {
   margin-right: auto;
 }
 
-.movie-slide-in-container {
-  animation: container-slide-in-left 1s linear forwards;
+.movie-slide-in {
+  animation-name: container-slide-in-left, opacity-fade-in;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
 }
 
-.movie-slide-in-transparency {
-  animation: transparency-fade-in 1s linear forwards;
-}
-
-.search-result-item-container-slide-and-text-fade-in {
+.search-result-item-slide-in {
   animation-name: container-slide-in-top, opacity-fade-in;
   animation-duration: 1s;
   animation-timing-function: linear;
@@ -79,7 +51,7 @@ main {
 }
 
 .background-fade {
-  animation: search-results-fade-background 1s linear forwards;
+  animation: fade-background 1s linear forwards;
 }
 
 #metacritic-logo {
@@ -148,9 +120,9 @@ main {
   to {color: rgba(0, 0, 0, 1);}
 }
 
-@keyframes search-results-fade-background {
-  from {background-color: rgba(255, 255, 255, 0);}
-  to {background-color: rgba(255, 255, 255, .8);}
+@keyframes fade-background {
+  from {opacity: 1;}
+  to {opacity: .2;}
 }
 
 @keyframes container-slide-in-left {
@@ -161,11 +133,6 @@ main {
 @keyframes container-slide-in-top {
   from {top: -20px;}
   to {top: 0px;}
-}
-
-@keyframes transparency-fade-in {
-  from {background-color: rgba(255, 255, 255, 1);}
-  to {background-color: rgba(255, 255, 255, 0);}
 }
 
 @keyframes opacity-fade-in {

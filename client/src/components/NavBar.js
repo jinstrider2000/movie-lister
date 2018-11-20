@@ -1,13 +1,14 @@
 import React from 'react';
 import SearchBar from './SearchBar';
 import {Navbar, Nav, NavItem} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 
 const NavBar = () => {
   return (
     <Navbar inverse collapseOnSelect fluid>
       <Navbar.Header>
         <Navbar.Brand>
-          <a href="/">Movie Lister</a>
+          <Link to="/">Movie Lister</Link>
         </Navbar.Brand>
         <Navbar.Toggle/>
       </Navbar.Header>
