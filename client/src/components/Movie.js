@@ -21,7 +21,7 @@ class Movie extends Component {
   render() {
     let output;
     if (this.state.loading) {
-      output = <img id="loading-movie-details" src={loadingGif}/>
+      output = <img id="loading-movie-details" src={loadingGif} alt="loading..."/>
     } else if (this.state.error) {
       output = <h3 className="error-message">Error: {this.state.errorMessage}</h3>
     } else {

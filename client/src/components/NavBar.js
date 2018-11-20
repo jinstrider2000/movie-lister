@@ -7,7 +7,7 @@ const NavBar = () => {
     <Navbar inverse collapseOnSelect fluid>
       <Navbar.Header>
         <Navbar.Brand>
-          <a href="#home">Movie Lister</a>
+          <a href="/">Movie Lister</a>
         </Navbar.Brand>
         <Navbar.Toggle/>
       </Navbar.Header>

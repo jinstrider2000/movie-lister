@@ -6,10 +6,6 @@ body {
   min-height: 100%;
 }
 
-.no-scroll {
-  overflow: hidden;
-}
-
 main {
   padding: 30px 40px 0;
   position: relative;
@@ -27,6 +23,7 @@ main {
   height: 100%;
   overflow: auto;
   color: rgba(0, 0, 0, 0);
+  z-index: 3;
 }
 
 #transparency-search-results {
@@ -35,7 +32,7 @@ main {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 2;
+  z-index: 4;
 }
 
 #transparency-movie-info {
@@ -47,17 +44,34 @@ main {
   z-index: 1;
 }
 
+.transparency-search-result-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 6;
+}
+
 #synopsis {
   margin-left: auto;
   margin-right: auto;
 }
 
 .movie-slide-in-container {
-  animation: container-slide-in 1s linear forwards;
+  animation: container-slide-in-left 1s linear forwards;
 }
 
 .movie-slide-in-transparency {
   animation: transparency-fade-in 1s linear forwards;
+}
+
+.search-result-item-container-slide-and-text-fade-in {
+  animation-name: container-slide-in-top, opacity-fade-in;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-delay: .75s;
+  animation-fill-mode: forwards;
 }
 
 .text-fade-in {
@@ -91,6 +105,35 @@ main {
   color: red;
 }
 
+.search-result-item {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 20px;
+  width: 75%;
+  opacity: 0;
+  background-color: rgba(180, 180, 180, .7);
+}
+
+.search-result-item-link, .search-result-item-link:active, .search-result-item-link:hover, .search-result-item-link:visited {
+  color: black;
+  text-decoration: none;
+}
+
+.search-result-item-link:hover > .search-result-item {
+  background-color: rgba(180, 180, 180, 1);
+}
+
+.search-result-item-poster {
+  width: 120px;
+  height: 180px;
+  float: left;
+}
+
+.search-result-item-info {
+  float: right;
+  clear: right;
+}
+
 .main-abs-ps {
   position: absolute;
   top: 0;
@@ -110,14 +153,24 @@ main {
   to {background-color: rgba(255, 255, 255, .8);}
 }
 
-@keyframes container-slide-in {
+@keyframes container-slide-in-left {
   from {left: -100px;}
   to {left: 0px;}
+}
+
+@keyframes container-slide-in-top {
+  from {top: -20px;}
+  to {top: 0px;}
 }
 
 @keyframes transparency-fade-in {
   from {background-color: rgba(255, 255, 255, 1);}
   to {background-color: rgba(255, 255, 255, 0);}
+}
+
+@keyframes opacity-fade-in {
+  from {opacity: 0;}
+  to {opacity: 1;}
 }
 
 @media (min-width: 768px) {
@@ -127,5 +180,9 @@ main {
 
   #synopsis {
     width: 75%;
+  }
+
+  .search-result-item {
+    width: 60%
   }
 }

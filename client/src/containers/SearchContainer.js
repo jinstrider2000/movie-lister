@@ -7,14 +7,18 @@ class SearchContainer extends Component {
   render() {
     let output;
     if (this.props.searchPaginator) {
-      output = <h1>There are search results to show!</h1>
+      output =
+        <React.Fragment>
+          <h2 className="text-fade-in">{`${this.props.totalResults} results for "${this.props.searchTerm}"`}</h2>
+          <SearchResultList results={this.props.results} searchTerm={this.props.searchTerm}/>
+        </React.Fragment>
     } else if (this.props.error){
       output = <h1>There is an error, no results</h1>;
     } else {
       output = null;
     }
     return (
-      <div id="search-container" className={output || this.props.error ? "text-fade-in" : null}>{output}</div>
+      <div id="search-container">{output}</div>
     );
   }
 }
