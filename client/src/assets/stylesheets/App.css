@@ -32,6 +32,10 @@ main {
   margin-right: auto;
 }
 
+.movie-detail {
+  font-size: 16px;
+}
+
 .movie-slide-in {
   animation-name: container-slide-in-left, opacity-fade-in;
   animation-duration: 1s;
