@@ -35,8 +35,9 @@ class Movie extends Component {
       this.setState({loading: true});
       this.getMovieInfo();
     }
-    else if (this.props.searchActivity !== prevProps.searchActivity || this.props.searchError !== prevProps.searchError) {
-      if ((this.props.searchActivity || this.props.searchError) && !this.state.loading & !this.state.error) {
+    else if ((this.props.searchActivity !== prevProps.searchActivity || this.props.searchError !== prevProps.searchError) && this.movieContainerRef.current) {
+      console.log("movie details loaded");
+      if (this.props.searchActivity || this.props.searchError) {
         this.movieContainerRef.current.classList.add("background-fade");
       } else {
         this.movieContainerRef.current.classList.remove("background-fade", "movie-slide-in");
@@ -47,7 +48,7 @@ class Movie extends Component {
   render() {
     let output;
     if (this.state.loading) {
-      output = <img id="loading-movie-details" src={loadingGif} alt="loading..." className={this.props.searchActivity || this.props.searchError ? "background-fade": null}/>
+      output = <img id="loading-movie-details" src={loadingGif} alt="loading..." className={this.props.searchHappening() ? "background-fade": null}/>
     } else if (this.state.error) {
       output = <h3 className={`error-message ${this.backgroundfadeIfSearching()}`}>Error: {this.state.errorMessage}</h3>
     } else {

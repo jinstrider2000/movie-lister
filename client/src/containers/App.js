@@ -25,7 +25,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" render={(routerProps) => <Home searchHappening={this.searchHappening} {...routerProps}/>}/>
               <Route exact path="/history" render={(routerProps) => <HistoryContainer searchHappening={this.searchHappening} {...routerProps}/>}/>
-              <Route path="/movie/:imdbId" render={(routerProps) => <Movie {...routerProps}/>}/>
+              <Route path="/movie/:imdbId" render={(routerProps) => <Movie searchHappening={this.searchHappening} {...routerProps}/>}/>
               <Route render={(routerProps) => <NotFound searchHappening={this.searchHappening} {...routerProps}/>}/>
             </Switch>
           </main>
