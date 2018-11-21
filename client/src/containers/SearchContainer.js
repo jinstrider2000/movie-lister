@@ -1,19 +1,24 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {getSearchResults} from '../actions/searchActions';
-import SearchResultList from '../components/SearchResultList'
+import {getSearchResults, clearSearch} from '../actions/searchActions';
+import SearchResultList from '../components/SearchResultList';
 
 class SearchContainer extends Component {
+
+  handleResultClick = () => {
+    this.props.clearSearch();
+  }
+
   render() {
     let output;
     if (this.props.searchPaginator) {
       output =
         <React.Fragment>
           <h2 className="text-fade-in">{`${this.props.totalResults} results for "${this.props.searchTerm}"`}</h2>
-          <SearchResultList results={this.props.results} searchTerm={this.props.searchTerm}/>
+          <SearchResultList results={this.props.results} searchTerm={this.props.searchTerm} handleResultClick={this.handleResultClick}/>
         </React.Fragment>
     } else if (this.props.error){
-      output = <h1>There is an error, no results</h1>;
+      output = <h2 className="text-fade-in">No results for "{this.props.searchTerm}"</h2>;
     } else {
       output = null;
     }
@@ -37,7 +42,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getMoreResults: (searchTerm) => dispatch(getSearchResults(searchTerm))
+    getMoreResults: (searchTerm) => dispatch(getSearchResults(searchTerm)),
+    clearSearch: () => dispatch(clearSearch())
   }
 }
 

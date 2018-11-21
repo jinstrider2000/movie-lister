@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import HistoryContainer from './HistoryContainer';
 import SearchContainer from './SearchContainer'
-import MovieShow from '../components/MovieShow';
 import Movie from '../components/Movie';
 import NavBar from '../components/NavBar';
 import Home from '../components/Home';

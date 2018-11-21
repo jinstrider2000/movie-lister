@@ -14,10 +14,6 @@ class Movie extends Component {
     this.movieContainerRef = React.createRef();
   }
 
-  searchHappening = () => this.props.searchActivity || this.props.searchError;
-
-  backgroundfadeIfSearching = () => this.searchHappening() ? "background-fade" : ""
-
   getMovieInfo = () => {
     client.get({id: this.props.match.params.imdbId}).then(movieInfo => this.setState({info: movieInfo, loading: false, error: false})).catch(error => this.setState({loading: false, info: {}, error: true, errorMessage: error.message}));
   }
@@ -26,17 +22,12 @@ class Movie extends Component {
     this.getMovieInfo();
   }
 
-  shouldComponentUpdate() {
-    return false
-  }
-
   componentDidUpdate(prevProps) {
     if (this.props.match.params.imdbId !== prevProps.match.params.imdbId) {
       this.setState({loading: true});
       this.getMovieInfo();
     }
     else if ((this.props.searchActivity !== prevProps.searchActivity || this.props.searchError !== prevProps.searchError) && this.movieContainerRef.current) {
-      console.log("movie details loaded");
       if (this.props.searchActivity || this.props.searchError) {
         this.movieContainerRef.current.classList.add("background-fade");
       } else {
@@ -48,9 +39,9 @@ class Movie extends Component {
   render() {
     let output;
     if (this.state.loading) {
-      output = <img id="loading-movie-details" src={loadingGif} alt="loading..." className={this.props.searchHappening() ? "background-fade": null}/>
+      output = <div className="main-abs-ps"><img id="loading-movie-details" src={loadingGif} alt="loading..." className={this.props.searchHappening() ? "background-fade": null}/></div>
     } else if (this.state.error) {
-      output = <h3 className={`error-message ${this.backgroundfadeIfSearching()}`}>Error: {this.state.errorMessage}</h3>
+      output = <div className="main-abs-ps error-message"><h3 className={this.props.searchHappening() ? "background-fade": null}>Error: {this.state.errorMessage}</h3></div>
     } else {
       output = 
         <div id="movie-details" className="main-abs-ps movie-slide-in" ref={this.movieContainerRef}>

@@ -14,11 +14,11 @@ export const loadHistory = (userId) => {
   )
 };
 
-export const addHistory = (userId, {title, imdbid}) => {
+export const addHistory = (userId, {title, imdbid, poster, year}) => {
   return (
     (dispatch, getState) => {
       if (!getState().historyInfo.history.find(historyItem => historyItem.imdbid === imdbid)) {
-        fetch(`/users/${userId}/history`, {method: "POST", body: {title, imdbid} , headers: {'Content-Type': 'application/json'}}).then(response => {
+        fetch(`/users/${userId}/history`, {method: "POST", body: {title, imdbid, poster, year} , headers: {'Content-Type': 'application/json'}}).then(response => {
           if (response.status === 201) {
             return response.json();
           } else if (response.status === 200) {
@@ -31,7 +31,7 @@ export const addHistory = (userId, {title, imdbid}) => {
             dispatch({type: "ADD_HISTORY", payload: response});
           }
         }).catch(error => console.error('Error: ', error));
-      } 
+      }
     }
   )
 };
@@ -43,7 +43,7 @@ export const removeHistory = (userId, historyId) => {
         if (response.ok) {
           dispatch({type: "DELETE_HISTORY", id: historyId});
         } else {
-          throw new Error("User not found");
+          throw new Error("User or history item not found");
         }
       }).catch(error => console.error('Error: ', error));
     }

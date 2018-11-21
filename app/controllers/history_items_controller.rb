@@ -36,7 +36,7 @@ class HistoryItemsController < ApplicationController
   private
 
   def history_params
-      params.permit(:title, :imdbid)
+      params.permit(:id, :title, :imdbid, :poster, :year)
   end
   
 end

@@ -4,7 +4,9 @@ class CreateHistoryItems < ActiveRecord::Migration[5.1]
       t.integer :user_id
       t.string :imdbid
       t.string :title
-
+      t.integer :year
+      t.string :poster
+      
       t.timestamps
     end
   end

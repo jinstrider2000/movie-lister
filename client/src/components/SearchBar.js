@@ -29,16 +29,29 @@ class SearchBar extends Component {
     }
   }
 
+  handleEnterKey = (event) => {
+    if (event.key === "Enter" && this.state.searchTerm !== "" && !this.searchTimeOut && !(this.props.searchActivity || this.props.searchError)) {
+      this.props.getSearchResults(this.state.searchTerm);
+    }
+  }
+
   render() {
     return (
       <Navbar.Form pullRight>
-      <FormGroup>
-        <FormControl type="text" placeholder="Search" onChange={this.updateSearchTerm} value={this.state.searchTerm} />
-      </FormGroup>
-    </Navbar.Form>
+        <FormGroup>
+          <FormControl id="search-bar" type="text" placeholder="Search" onChange={this.updateSearchTerm} onKeyDown={this.handleEnterKey} value={this.state.searchTerm} />
+        </FormGroup>
+      </Navbar.Form>
     );
   }
 
+}
+
+const mapStateToProps = (state) => {
+  return {
+    searchActivity: state.searchResults.currentSearchPaginator,
+    searchError: state.searchResults.error
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -49,4 +62,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(SearchBar);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
