@@ -2,11 +2,34 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {getSearchResults, clearSearch} from '../actions/searchActions';
 import SearchResultList from '../components/SearchResultList';
+import throttle from 'lodash.throttle';
 
 class SearchContainer extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {loading: false};
+    this.searchTimeOut = null;
+    this.checkIfScrolledBottomThrottled = throttle(this.checkIfScrolledBottom, 200);
+  }
+  
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.checkIfScrolledBottomThrottled);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.checkIfScrolledBottomThrottled);
+  }
+
   handleResultClick = () => {
     this.props.clearSearch();
+  }
+
+  checkIfScrolledBottom = () => {
+    if (this.props.searchPaginator && (this.props.totalLoaded < this.props.totalResults) && (window.pageYOffset + window.innerHeight > document.body.scrollHeight - window.innerHeight/10)) {
+      this.props.getMoreResults(this.props.searchTerm);
+    }
   }
 
   render() {
