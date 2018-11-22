@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {getSearchResults, clearSearch} from '../actions/searchActions';
+import {getMoreResults, clearSearch} from '../actions/searchActions';
 import SearchResultList from '../components/SearchResultList';
 import throttle from 'lodash.throttle';
 
@@ -27,8 +27,10 @@ class SearchContainer extends Component {
   }
 
   checkIfScrolledBottom = () => {
-    if (this.props.searchPaginator && (this.props.totalLoaded < this.props.totalResults) && (window.pageYOffset + window.innerHeight > document.body.scrollHeight - window.innerHeight/10)) {
-      this.props.getMoreResults(this.props.searchTerm);
+    if (this.props.searchPaginator && (this.props.totalLoaded < this.props.totalResults) && (window.pageYOffset + window.innerHeight > document.body.scrollHeight - Math.ceil(window.innerHeight/10))) {
+      // this.props.getMoreResults(this.props.searchPaginator);
+      console.log("Got to bottom of search, fire new async for more results");
+      
     }
   }
 
@@ -65,7 +67,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getMoreResults: (searchTerm) => dispatch(getSearchResults(searchTerm)),
+    getMoreResults: (paginator) => dispatch(getMoreResults(paginator)),
     clearSearch: () => dispatch(clearSearch())
   }
 }

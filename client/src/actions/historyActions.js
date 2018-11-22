@@ -1,4 +1,4 @@
-export const loadHistory = (userId) => {
+const loadHistory = (userId) => {
   return (
     (dispatch, getState) => {
       if (!getState().historyInfo.retreived) {
@@ -14,7 +14,7 @@ export const loadHistory = (userId) => {
   )
 };
 
-export const addHistory = (userId, {title, imdbid, poster, year}) => {
+const addHistory = (userId, {title, imdbid, poster, year}) => {
   return (
     (dispatch, getState) => {
       if (!getState().historyInfo.history.find(historyItem => historyItem.imdbid === imdbid)) {
@@ -36,7 +36,7 @@ export const addHistory = (userId, {title, imdbid, poster, year}) => {
   )
 };
 
-export const removeHistory = (userId, historyId) => {
+const removeHistory = (userId, historyId) => {
   return (
     (dispatch) => {
       fetch(`/users/${userId}/history/${historyId}`, {method: "DELETE"}).then(response => {
@@ -49,3 +49,5 @@ export const removeHistory = (userId, historyId) => {
     }
   )
 };
+
+export {loadHistory, addHistory, removeHistory};
