@@ -8,10 +8,13 @@ const getSearchResults = (searchTerm) => {
   )
 }
 
-const getMoreResults = (paginator) => {
+const getMoreResults = (paginator, component) => {
   return (
     (dispatch) => {
-      paginator.next().then(searchObj => dispatch({type: "GET_MORE_RESULTS", newSearchPaginator: searchObj, results: searchObj.results})).catch(error => console.error("Problem occurred retrieving more results"))
+      paginator.next().then(searchObj => {
+        dispatch({type: "GET_MORE_RESULTS", newSearchPaginator: searchObj, results: searchObj.results});
+        setTimeout(() => component.setState({loadingMoreResults: false}),200);
+      }).catch(() => console.error("Problem occurred retrieving more results"));
     }
   )
 }

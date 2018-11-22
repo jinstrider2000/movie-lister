@@ -8,7 +8,7 @@ class SearchContainer extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {loading: false};
+    this.state = {loadingMoreResults: false};
     this.searchTimeOut = null;
     this.checkIfScrolledBottomThrottled = throttle(this.checkIfScrolledBottom, 200);
   }
@@ -22,15 +22,14 @@ class SearchContainer extends Component {
     window.removeEventListener('scroll', this.checkIfScrolledBottomThrottled);
   }
 
-  handleResultClick = () => {
+  clearSearch = () => {
     this.props.clearSearch();
   }
 
   checkIfScrolledBottom = () => {
-    if (this.props.searchPaginator && (this.props.totalLoaded < this.props.totalResults) && (window.pageYOffset + window.innerHeight > document.body.scrollHeight - Math.ceil(window.innerHeight/10))) {
-      // this.props.getMoreResults(this.props.searchPaginator);
-      console.log("Got to bottom of search, fire new async for more results");
-      
+    if (this.props.searchPaginator && (this.props.totalLoaded < this.props.totalResults) && (window.pageYOffset + window.innerHeight > document.body.scrollHeight - Math.ceil(window.innerHeight/10)) && this.state.loadingMoreResults === false) {
+      this.setState({loadingMoreResults: true});
+      this.props.getMoreResults(this.props.searchPaginator,this);
     }
   }
 
@@ -40,7 +39,7 @@ class SearchContainer extends Component {
       output =
         <React.Fragment>
           <h2 className="text-fade-in">{`${this.props.totalResults} results for "${this.props.searchTerm}"`}</h2>
-          <SearchResultList results={this.props.results} searchTerm={this.props.searchTerm} handleResultClick={this.handleResultClick}/>
+          <SearchResultList results={this.props.results} searchTerm={this.props.searchTerm} handleResultClick={this.clearSearch}/>
         </React.Fragment>
     } else if (this.props.error){
       output = <h2 className="text-fade-in">No results for "{this.props.searchTerm}"</h2>;
@@ -48,7 +47,10 @@ class SearchContainer extends Component {
       output = null;
     }
     return (
-      <div id="search-container">{output}</div>
+      <div id="search-container">
+        {output}
+        <p className={this.props.searchPaginator && this.props.totalLoaded === this.props.totalResults ? "visible text-fade-in": "hidden"}>End of List</p>
+      </div>
     );
   }
 }
@@ -67,7 +69,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getMoreResults: (paginator) => dispatch(getMoreResults(paginator)),
+    getMoreResults: (paginator,component) => dispatch(getMoreResults(paginator, component)),
     clearSearch: () => dispatch(clearSearch())
   }
 }
