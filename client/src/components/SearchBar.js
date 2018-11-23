@@ -39,7 +39,7 @@ class SearchBar extends Component {
     return (
       <Navbar.Form pullRight>
         <FormGroup>
-          <FormControl id="search-bar" type="text" placeholder="Search" onChange={this.updateSearchTerm} onKeyDown={this.handleEnterKey} value={this.state.searchTerm} />
+          <FormControl id="search-bar" type="text" placeholder="Search Titles" onChange={this.updateSearchTerm} onKeyDown={this.handleEnterKey} value={this.state.searchTerm} />
         </FormGroup>
       </Navbar.Form>
     );
