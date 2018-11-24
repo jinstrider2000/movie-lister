@@ -48,6 +48,7 @@ class SearchContainer extends Component {
     }
     return (
       <div id="search-container">
+        <span id="search-exit" className="text-fade-in" onClick={this.clearSearch}>X</span>
         {output}
         <p className={this.props.searchPaginator && this.props.totalLoaded === this.props.totalResults ? "visible text-fade-in": "hidden"}>End of List</p>
       </div>

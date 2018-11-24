@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 const NotFound = (props) => (
-  <div className={props.searchHappening() ? "main-abs-ps background-fade" : null}>
+  <div className={props.searchHappening() ? "main-abs-ps-back background-fade" : null}>
     <h1 className="error-message">404 NOT FOUND</h1>
     <br/>
     <img src="https://i.imgur.com/88Pjm53.jpg" alt="cool hand luke quote: failure to communicate"/>

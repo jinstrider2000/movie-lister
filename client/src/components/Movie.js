@@ -24,13 +24,15 @@ class Movie extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.match.params.imdbId !== prevProps.match.params.imdbId) {
-      this.setState({loading: true});
-      this.getMovieInfo();
+      this.setState({loading: true, info: {}, error: false});
+      setTimeout(this.getMovieInfo, 200);
     }
     else if ((this.props.searchActivity !== prevProps.searchActivity || this.props.searchError !== prevProps.searchError) && this.movieContainerRef.current) {
       if (this.props.searchActivity || this.props.searchError) {
+        this.movieContainerRef.current.classList.replace("main-abs-ps-front", "main-abs-ps-back");
         this.movieContainerRef.current.classList.add("background-fade");
       } else {
+        this.movieContainerRef.current.classList.replace("main-abs-ps-back", "main-abs-ps-front");
         this.movieContainerRef.current.classList.remove("background-fade", "movie-slide-in");
       }
     }
@@ -39,12 +41,12 @@ class Movie extends Component {
   render() {
     let output;
     if (this.state.loading) {
-      output = <div className="main-abs-ps"><img id="loading-movie-details" src={loadingGif} alt="loading..." className={this.props.searchHappening() ? "background-fade": null}/></div>
+      output = <div className="main-abs-ps-back"><img id="loading-movie-details" src={loadingGif} alt="loading..." className={this.props.searchHappening() ? "background-fade": null}/></div>
     } else if (this.state.error) {
-      output = <div className="main-abs-ps error-message"><h3 className={this.props.searchHappening() ? "background-fade": null}>Error: {this.state.errorMessage}</h3></div>
+      output = <div className="main-abs-ps-back error-message"><h3 className={this.props.searchHappening() ? "background-fade": null}>Error: {this.state.errorMessage}</h3></div>
     } else {
       output = 
-        <div id="movie-details" className="main-abs-ps movie-slide-in" ref={this.movieContainerRef}>
+        <div id="movie-details" className="main-abs-ps-front movie-slide-in" ref={this.movieContainerRef}>
           <img id="movie-poster" src={this.state.info.poster !== "N/A" ? this.state.info.poster : posterPlaceHolder} alt="Movie Poster"/>
           <h1>{this.state.info.title}</h1>
           {this.state.info.production !== "N/A" ? <h2>(A {this.state.info.production} Release)</h2> : null }
