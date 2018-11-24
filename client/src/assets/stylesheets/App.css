@@ -30,6 +30,12 @@ main {
   z-index: 1;
 }
 
+#brand-reel {
+  width: 20px;
+  height: 15px;
+  display: inline-block;
+}
+
 #search-exit {
   position: absolute;
   top: 0;
