@@ -9,7 +9,7 @@ const NavBar = () => {
     <Navbar inverse collapseOnSelect fluid>
       <Navbar.Header>
         <Navbar.Brand>
-          <Link to="/">M<img id="brand-reel" src={brandReel}/>vieLister</Link>
+          <Link to="/">M<img id="brand-reel" alt="o-reel" src={brandReel}/>vieLister</Link>
         </Navbar.Brand>
         <Navbar.Toggle/>
       </Navbar.Header>
