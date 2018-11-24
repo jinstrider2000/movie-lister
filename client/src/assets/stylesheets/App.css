@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Black+Han+Sans|Poppins');
+
 html {
   height: 100%;
 }
@@ -38,6 +40,14 @@ main {
 
 .jumbotron {
   background-color: inherit;
+  font-family: "Poppins", sans-serif;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.navbar-brand {
+  font-family: "Black Han Sans", sans-serif;
 }
 
 .movie-slide-in {
@@ -63,7 +73,7 @@ main {
   animation: fade-background 1s linear forwards;
 }
 
-.carousel-caption a {
+.carousel-caption a, .carousel-caption p {
   color: whitesmoke;
 }
 
