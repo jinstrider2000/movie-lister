@@ -41,7 +41,7 @@ class Movie extends Component {
   render() {
     let output;
     if (this.state.loading) {
-      output = <div className="main-abs-ps-back"><img id="loading-movie-details" src={loadingGif} alt="loading..." className={this.props.searchHappening() ? "background-fade": ""}/></div>
+      output = <div className="main-abs-ps-back"><img id="loading-main" src={loadingGif} alt="loading..." className={this.props.searchHappening() ? "background-fade": ""}/></div>
     } else if (this.state.error) {
       output = <div className="main-abs-ps-back error-message"><h3 className={this.props.searchHappening() ? "background-fade": ""}>Error: {this.state.errorMessage}</h3></div>
     } else {

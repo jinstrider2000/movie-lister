@@ -13,7 +13,7 @@ main {
   position: relative;
 }
 
-#loading-movie-details {
+#loading-main {
   display: inline-block;
   width: 15%;
   height: 15%;
