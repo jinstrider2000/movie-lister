@@ -73,6 +73,22 @@ main {
   font-family: "Black Han Sans", sans-serif;
 }
 
+.movie-preview-delete {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 16px;
+}
+
+.movie-preview-delete:hover {
+  cursor: pointer;
+  background-color: red;
+}
+
+.movie-preview-delete:active {
+  background-color: brown;
+}
+
 .movie-slide-in {
   animation-name: container-slide-in-left, opacity-fade-in;
   animation-duration: 1s;

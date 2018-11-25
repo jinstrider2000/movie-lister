@@ -8,12 +8,13 @@ class HistoryContainer extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {loading: true, error: false}
+    this.state = {loading: true}
   }
-  
 
   componentDidMount() {
-
+    if (!this.props.retrieved) {
+      this.props.loadHistory(this.props.userId);
+    }
   }
   
   render() {
@@ -23,7 +24,7 @@ class HistoryContainer extends Component {
     } else if (this.props.retrieved && this.props.history.length > 0 ) {
       output = <React.Fragment>
           <h2>History</h2>
-          <HistoryList/>
+          <HistoryList deleteHistory={this.props.removeHistory} history={this.props.history} userId={this.props.userId}/>
         </React.Fragment>
     } else if (this.props.retrieved && this.props.history.length === 0) {
       output = <h3>No History</h3>
