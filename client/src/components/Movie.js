@@ -27,8 +27,8 @@ class Movie extends Component {
       this.setState({loading: true, info: {}, error: false});
       setTimeout(this.getMovieInfo, 200);
     }
-    else if ((this.props.searchActivity !== prevProps.searchActivity || this.props.searchError !== prevProps.searchError) && this.movieContainerRef.current) {
-      if (this.props.searchActivity || this.props.searchError) {
+    else if (this.movieContainerRef.current && (this.props.searchActivity !== prevProps.searchActivity || this.props.searchError !== prevProps.searchError)) {
+      if (this.props.searchHappening()) {
         this.movieContainerRef.current.classList.replace("main-abs-ps-front", "main-abs-ps-back");
         this.movieContainerRef.current.classList.add("background-fade");
       } else {
@@ -41,9 +41,9 @@ class Movie extends Component {
   render() {
     let output;
     if (this.state.loading) {
-      output = <div className="main-abs-ps-back"><img id="loading-movie-details" src={loadingGif} alt="loading..." className={this.props.searchHappening() ? "background-fade": null}/></div>
+      output = <div className="main-abs-ps-back"><img id="loading-movie-details" src={loadingGif} alt="loading..." className={this.props.searchHappening() ? "background-fade": ""}/></div>
     } else if (this.state.error) {
-      output = <div className="main-abs-ps-back error-message"><h3 className={this.props.searchHappening() ? "background-fade": null}>Error: {this.state.errorMessage}</h3></div>
+      output = <div className="main-abs-ps-back error-message"><h3 className={this.props.searchHappening() ? "background-fade": ""}>Error: {this.state.errorMessage}</h3></div>
     } else {
       output = 
         <div id="movie-details" className="main-abs-ps-front movie-slide-in" ref={this.movieContainerRef}>

@@ -5,7 +5,7 @@ import searchIcon from '../assets/images/search_icon.svg.png'
 
 const Home = (props) => {
     return (
-      <div className={props.searchHappening() ? "main-abs-ps-back background-fade" : "main-abs-ps-front"}>
+      <div className={props.searchHappening() ? "main-abs-ps-back background-fade" : ""}>
         <Jumbotron>
           <h1>Discover the Movies!</h1>
           <PicCarousel/>

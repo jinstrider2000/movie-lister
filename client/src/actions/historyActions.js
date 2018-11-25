@@ -1,15 +1,13 @@
 const loadHistory = (userId) => {
   return (
-    (dispatch, getState) => {
-      if (!getState().historyInfo.retreived) {
-        fetch(`/users/${userId}/history`).then(response => {
-          if(response.ok) {
-            return response.json();
-          } else {
-            throw new Error('User not found');
-          }
-        }).then(historyList => dispatch({type: "LOAD_HISTORY", payload: historyList})).catch(error => console.error('Error: ', error));
-      }
+    (dispatch) => {
+      fetch(`/users/${userId}/history`).then(response => {
+        if(response.ok) {
+          return response.json();
+        } else {
+          throw new Error('User not found');
+        }
+      }).then(historyList => dispatch({type: "LOAD_HISTORY", payload: historyList})).catch(error => console.error('Error: ', error));
     }
   )
 };
