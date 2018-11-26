@@ -2,7 +2,7 @@ class HistoryItemsController < ApplicationController
 
   def create
     user = User.find_by(id: params[:user_id])
-    if user && !@user.history_items.find_by(imdbid: params[:imdbid])
+    if user && !user.history_items.find_by(imdbid: params[:imdbid])
       history_item = user.history_items.create(history_params)
       render json: history_item, status: 201
     elsif user

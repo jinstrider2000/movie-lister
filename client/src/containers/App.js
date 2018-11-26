@@ -11,14 +11,13 @@ import '../assets/stylesheets/App.css';
 
 class App extends Component {
 
-  signedIn = () => !!this.props.userId;
   searchHappening = () => this.props.searchActivity || this.props.searchError; 
 
   render() {
     return (
       <BrowserRouter>
         <React.Fragment>
-          <NavBar/>
+          <NavBar signedIn={this.props.signedIn} username={this.props.username}/>
           <main className="text-center">
             <SearchContainer/>
             <Switch>
@@ -37,6 +36,8 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     userId: state.user.id,
+    signedIn: state.user.signedIn,
+    username: state.user.username,
     searchActivity: state.searchResults.currentSearchPaginator,
     searchError: state.searchResults.error
   }

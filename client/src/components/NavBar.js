@@ -1,10 +1,18 @@
 import React from 'react';
 import SearchBar from './SearchBar';
-import {Navbar, Nav, NavItem} from 'react-bootstrap';
+import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import brandReel from '../assets/images/brand_reel.png';
 
-const NavBar = () => {
+const NavBar = ({signedIn, username}) => {
+  let variableDisplay
+  if (signedIn) {
+    variableDisplay = <NavDropdown>
+
+    </NavDropdown>
+  } else {
+    variableDisplay = null
+  }
   return (
     <Navbar inverse collapseOnSelect fluid>
       <Navbar.Header>

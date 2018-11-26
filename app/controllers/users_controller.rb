@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
 
   def create
-    @user = User.create(user_params)
-    if @user.persisted?
-      render json: {user_id: @user.id}, status: 201
+    user = User.create(user_params)
+    if user.persisted?
+      render json: user, status: 201
     else
       head :bad_request
     end

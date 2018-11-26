@@ -1,9 +1,9 @@
-export default (state = {id: null, signedIn: false}, action) => {
+export default (state = {id: null, username: null ,signedIn: false}, action) => {
   switch (action.type) {
     case "SIGN_IN":
-      return {id: action.user_id, signedIn: true};
+      return {id: action.payload.id, username: action.payload.username, signedIn: true};
     case "SIGN_OUT":
-      return {id: null, signedIn: false};
+      return {id: null, username: null, signedIn: false};
     default:
      return state;
   }
