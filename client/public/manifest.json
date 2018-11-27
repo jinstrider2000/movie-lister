@@ -1,6 +1,6 @@
 {
-  "short_name": "Movie Lister",
-  "name": "Movie Lister",
+  "short_name": "MovieLister",
+  "name": "MovieLister",
   "icons": [
     {
       "src": "favicon.ico",

@@ -7,6 +7,7 @@ import Movie from '../components/Movie';
 import NavBar from '../components/NavBar';
 import Home from '../components/Home';
 import NotFound from '../components/NotFound';
+import SignInForm from '../components/SignInForm';
 import '../assets/stylesheets/App.css';
 
 class App extends Component {
@@ -22,6 +23,7 @@ class App extends Component {
             <SearchContainer/>
             <Switch>
               <Route exact path="/" render={(routerProps) => <Home searchHappening={this.searchHappening} {...routerProps}/>}/>
+              <Route exact path="/sign-in" render={(routerProps) => <SignInForm/>}></Route>
               <Route exact path="/history" render={(routerProps) => <HistoryContainer searchHappening={this.searchHappening} {...routerProps}/>}/>
               <Route path="/movie/:imdbId" render={(routerProps) => <Movie searchHappening={this.searchHappening} {...routerProps}/>}/>
               <Route render={(routerProps) => <NotFound searchHappening={this.searchHappening} {...routerProps}/>}/>
