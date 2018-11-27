@@ -1,22 +1,35 @@
 import React from 'react';
 import SearchBar from './SearchBar';
 import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
-import {Link, NavLink} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
+import {LinkContainer} from 'react-router-bootstrap';
 import brandReel from '../assets/images/brand_reel.png';
+
+const handleSignOut = (event, signOutFunction) => {
+  event.preventDefault();
+  signOutFunction();
+  <Redirect to="/"/>
+}
 
 const NavBar = ({signedIn, signOut, username}) => {
   let variableDisplay
   if (signedIn) {
     variableDisplay = <React.Fragment>
-        <SearchBar/>
-        <NavDropdown title={username} pullRight>
-          <li role="presentation" className={location.pathname === "/history" ? "active" : ""}><Link to="/history" role="menuitem" tabIndex="-1">History</Link></li>
-          <MenuItem onClick={(event) => {event.preventDefault(); signOut();}}></MenuItem>
+      <SearchBar/>
+      <Nav pullRight>
+        <NavDropdown id="user-menu" eventKey="2" title={username}>
+          <LinkContainer to="/history">
+            <MenuItem eventKey="2.1">History</MenuItem>
+          </LinkContainer>
+          <MenuItem onClick={handleSignOut.bind(null,null,signOut)} eventKey="2.2">Sign Out</MenuItem>
         </NavDropdown>
-      </React.Fragment>
+      </Nav>
+    </React.Fragment>
   } else {
     variableDisplay = <Nav pullRight>
-      <li role="presentation" className={location.pathname === "/history" ? "active" : ""}><Link to="/sign-in" role="menuitem">Sign-In/Register</Link></li>
+      <LinkContainer to="/sign-in">
+        <NavItem eventKey="1">Sign In/Register</NavItem>
+      </LinkContainer>
     </Nav>
   }
   return (
@@ -28,12 +41,7 @@ const NavBar = ({signedIn, signOut, username}) => {
         <Navbar.Toggle/>
       </Navbar.Header>
       <Navbar.Collapse>
-      <SearchBar/>
-        <Nav pullRight>
-          <NavItem eventKey={1} href="/history">
-            History
-          </NavItem>
-        </Nav>
+        {variableDisplay}
       </Navbar.Collapse>
     </Navbar>
   );

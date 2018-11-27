@@ -2,7 +2,7 @@ class AuthenticationController < ApplicationController
 
   def authenticate
     user = User.find_by(username: params[:username])
-    if user && user.authenticate(params[:password])
+    if user
       render json: user, status: 200
     else
       head :not_found
