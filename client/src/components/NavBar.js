@@ -4,7 +4,7 @@ import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
 import {Link, NavLink} from 'react-router-dom';
 import brandReel from '../assets/images/brand_reel.png';
 
-const NavBar = ({signedIn, signOut ,username}) => {
+const NavBar = ({signedIn, signOut, username}) => {
   let variableDisplay
   if (signedIn) {
     variableDisplay = <React.Fragment>
