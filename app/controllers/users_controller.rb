@@ -4,8 +4,19 @@ class UsersController < ApplicationController
     user = User.create(user_params)
     if user.persisted?
       render json: user, status: 201
+    elsif user.errors.get(:username).include?("has already been taken")
+      head :forbidden
     else
       head :bad_request
+    end
+  end
+
+  def get
+    user = User.find_by(username: params[:username])
+    if user
+      render json: user, status: 200
+    else
+      head :not_found
     end
   end
 

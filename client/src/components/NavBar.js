@@ -9,11 +9,6 @@ import brandReel from '../assets/images/brand_reel.png';
 
 class NavBar extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {active: null};
-  }
-
   handleSignOut = (event) => {
     event.preventDefault();
     this.props.signOut();

@@ -1,54 +1,98 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {signIn} from '../actions/authenicationActions';
-import {FormGroup, FormControl, ControlLabel, Button} from 'react-bootstrap';
+import {FormGroup, FormControl, ControlLabel, Button, Alert} from 'react-bootstrap';
 
 class SignInForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {username: ""};
+    this.state = {username: "", alert: {status: false, message: ""}};
+    this.formInputRef = React.createRef();
+  }
+
+  componentDidUpdate() {
+    if (this.formInputRef.current.props.validationState === "error") {
+      if (!this.state.alert.status) {
+        this.setState({alert: {status: true, message: "Username must be between 6-12 characters long and alphanumeric."}});
+      }
+    } else if (this.formInputRef.current.props.validationState === "success" || this.formInputRef.current.props.validationState === null) {
+      if (this.state.alert.status) {
+        this.setState({alert: {status: false, message: ""}});
+      }
+    }
   }
 
   handleInput = (event) => {
     this.setState({[event.target.name]: event.target.value});
   }
 
-  handleRegister = () => {
-    if (condition) {
-      
+  checkValidation = () => {
+    const length = this.state.username.length;
+    const content = this.state.username;
+    if (length >= 6 && length <= 12 && !content.match(/[^A-Za-z0-9]/)) {
+      return "success";
+    } else if (length > 0) {
+      return "error";
     } else {
-      
+      return null;
     }
-    fetch('/users', {method: "POST", body:{...this.state}, headers: {'Content-Type': 'application/json'}})
+  }
+
+  handleRegister = () => {
+    if (this.formInputRef.current.props.validationState === "success") {
+      fetch('/register', {method: "POST", body: {username: this.state.username}, headers: {'Content-Type': 'application/json'}}).then(resp => {
+        if (resp.ok) {
+          return resp.json();
+        } else {
+          if (resp.status === 400) {
+            throw new Error("Bad request body");
+          } else {
+            throw new Error("Username is already taken.");
+          }
+        }
+      }).then(userInfo => this.props.signIn(userInfo)).catch(error => {
+        if (error.message === "Username is already taken.") {
+          this.setState({alert:{status: true, message: error.message}});
+        } else {
+          console.error("Error: ", error);
+        }
+      });
+    }
   }
 
   handleLogin = () => {
-
+    fetch(`/sign-in?username=${this.state.username}`).then(resp => {
+      if (resp.ok) {
+        return resp.json();
+      } else {
+        throw Error("Username not found.");
+      }
+    }).then(userInfo =>this.props.signIn(userInfo)).catch(error => this.setState({alert:{status: true, message: error.message}}));
   }
 
   render() {
     return (
       <div id="sign-in-container">
         <form>
-          <FormGroup controlId="input-username">
+          <FormGroup ref={this.formInputRef} controlId="input-username" validationState={this.checkValidation()}>
             <ControlLabel>Username</ControlLabel>
             <FormControl type="text" name="username" onChange={this.handleInput} value={this.state.username}/>
           </FormGroup>
-          <Button className="form-button" bsSize="large" onClick={null}>Sign In</Button>
-          <Button className="form-button" onClick={null}>Register</Button>
+          {this.state.alert.status ? <Alert bsStyle="danger"><p>{this.state.alert.message}</p></Alert>: null}
+          <Button className="form-button" bsSize="large" onClick={this.handleLogin}>Sign In</Button>
+          <Button className="form-button" onClick={this.handleRegister}>Register</Button>
         </form>
       </div>
     )
   }
-  
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    signIn: () => {
-      dispatch(signIn());
+    signIn: (userInfo) => {
+      dispatch(signIn(userInfo));
     }
   }
 }
 
-export default SignInForm
+export default connect(null,mapDispatchToProps)(SignInForm)

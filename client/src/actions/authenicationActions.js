@@ -1,4 +1,4 @@
-const signIn = () => ({type: "SIGN_IN"})
-const signOut = () => ({type: "SIGN_OUT"})
+const signIn = (userInfo) => ({type: "SIGN_IN", payload: userInfo});
+const signOut = () => ({type: "SIGN_OUT"});
 
 export {signIn, signOut};
