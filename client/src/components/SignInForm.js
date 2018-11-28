@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FormGroup, FormControl, ControlLabel, Button, Grid} from 'react-bootstrap';
+import {FormGroup, FormControl, ControlLabel, Button} from 'react-bootstrap';
 
 class SignInForm extends Component {
   constructor(props) {
