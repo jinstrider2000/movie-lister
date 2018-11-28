@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {signIn} from '../actions/authenicationActions';
 import {FormGroup, FormControl, ControlLabel, Button} from 'react-bootstrap';
 
 class SignInForm extends Component {
@@ -11,6 +13,19 @@ class SignInForm extends Component {
     this.setState({[event.target.name]: event.target.value});
   }
 
+  handleRegister = () => {
+    if (condition) {
+      
+    } else {
+      
+    }
+    fetch('/users', {method: "POST", body:{...this.state}, headers: {'Content-Type': 'application/json'}})
+  }
+
+  handleLogin = () => {
+
+  }
+
   render() {
     return (
       <div id="sign-in-container">
@@ -19,13 +34,21 @@ class SignInForm extends Component {
             <ControlLabel>Username</ControlLabel>
             <FormControl type="text" name="username" onChange={this.handleInput} value={this.state.username}/>
           </FormGroup>
-          <Button onClick={null}>Register</Button>
-          <Button onClick={null}>Sign In</Button>
+          <Button className="form-button" bsSize="large" onClick={null}>Sign In</Button>
+          <Button className="form-button" onClick={null}>Register</Button>
         </form>
       </div>
     )
   }
   
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signIn: () => {
+      dispatch(signIn());
+    }
+  }
 }
 
 export default SignInForm

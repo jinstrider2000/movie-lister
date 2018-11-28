@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import SearchBar from './SearchBar';
 import {signOut} from '../actions/authenicationActions';
 import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
-import {Link, Redirect} from 'react-router-dom';
+import {Link, Redirect, withRouter} from 'react-router-dom';
 import {LinkContainer} from 'react-router-bootstrap';
 import brandReel from '../assets/images/brand_reel.png';
 
@@ -13,12 +13,6 @@ class NavBar extends Component {
     super(props);
     this.state = {active: null};
   }
-  
-  // setActive = (selectedKey) => {
-  //   this.setState({active: selectedKey});
-  //   console.log(this.state.active);
-    
-  // }
 
   handleSignOut = (event) => {
     event.preventDefault();
@@ -42,7 +36,7 @@ class NavBar extends Component {
       </React.Fragment>
     } else {
       variableDisplay = <Nav pullRight>
-        <LinkContainer exact={true} to="/sign-in">
+        <LinkContainer to="/sign-in">
           <NavItem>Sign In/Register</NavItem>
         </LinkContainer>
       </Nav>
@@ -79,4 +73,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavBar));
