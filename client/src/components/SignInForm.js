@@ -6,15 +6,15 @@ import {FormGroup, FormControl, ControlLabel, Button, Alert} from 'react-bootstr
 class SignInForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {username: "", alert: {message: ""}, fetchError: false, inputError: false, lastBadUsername: ""};
+    this.state = {username: "", alertMessage: "", fetchError: false, inputError: false, lastBadUsername: ""};
     this.formInputRef = React.createRef();
   }
 
   componentDidUpdate() {
     if (this.formInputRef.current.props.validationState === "error" && !this.state.inputError) {
-      this.setState({alert: {message: "Username must be between 6-12 characters long and alphanumeric."}, inputError: true});
+      this.setState({alertMessage: "Username must be between 6-12 characters long and alphanumeric.", inputError: true});
     } else if ((this.formInputRef.current.props.validationState === "success" || this.formInputRef.current.props.validationState === null) && this.state.inputError) {
-      this.setState({alert: {message: ""}, inputError: false});
+      this.setState({alertMessage: "", inputError: false});
     }
   }
 
@@ -52,7 +52,7 @@ class SignInForm extends Component {
         }
       }).then(userInfo => this.props.signIn(userInfo)).catch(error => {
         if (error.message === "Username is already taken.") {
-          this.setState({alert:{message: `${this.state.username}: error.message`}, fetchError: true, lastBadUsername: this.state.username});
+          this.setState({alertMessage: `${this.state.username}: error.message`, fetchError: true, lastBadUsername: this.state.username});
         } else {
           console.error("Error: ", error);
         }
@@ -70,7 +70,7 @@ class SignInForm extends Component {
         }
       }).then(userInfo => this.props.signIn(userInfo)).catch(error => {
         console.error("Error: ", error);
-        this.setState({alert: {status: true, message: `${this.state.username}: ${error.message}`}, fetchError: true});
+        this.setState({alertMessage: `${this.state.username}: ${error.message}`, fetchError: true});
       });
     }
   }
@@ -83,7 +83,7 @@ class SignInForm extends Component {
             <ControlLabel>Username</ControlLabel>
             <FormControl type="text" name="username" onChange={this.handleInput} value={this.state.username}/>
           </FormGroup>
-          {this.state.fetchError || this.state.inputError ? <Alert bsStyle="danger"><p>{this.state.alert.message}</p></Alert>: null}
+          {this.state.fetchError || this.state.inputError ? <Alert bsStyle="danger"><p>{this.state.alertMessage}</p></Alert>: null}
           <Button className="form-button" bsSize="large" onClick={this.handleLogin}>Sign In</Button>
           <Button className="form-button" onClick={this.handleRegister}>Register</Button>
         </form>
