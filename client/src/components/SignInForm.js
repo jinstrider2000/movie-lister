@@ -6,20 +6,24 @@ import {FormGroup, FormControl, ControlLabel, Button, Alert} from 'react-bootstr
 class SignInForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {username: "", alert: {message: ""}, fetchError: false, inputError: false};
+    this.state = {username: "", alert: {message: ""}, fetchError: false, inputError: false, lastBadUsername: ""};
     this.formInputRef = React.createRef();
   }
 
   componentDidUpdate() {
     if (this.formInputRef.current.props.validationState === "error" && !this.state.inputError) {
-      this.setState({alert: {message: "Username must be between 6-12 characters long and alphanumeric."}, inputError: true, fetchError: false});
+      this.setState({alert: {message: "Username must be between 6-12 characters long and alphanumeric."}, inputError: true});
     } else if ((this.formInputRef.current.props.validationState === "success" || this.formInputRef.current.props.validationState === null) && this.state.inputError) {
       this.setState({alert: {message: ""}, inputError: false});
     }
   }
 
   handleInput = (event) => {
+    if (this.state.fetchError && event.target.value !== this.state.lastBadUsername) {
+      this.setState({[event.target.name]: event.target.value, fetchError: false});
+    } else {
     this.setState({[event.target.name]: event.target.value});
+    }
   }
 
   checkValidation = () => {
@@ -48,7 +52,7 @@ class SignInForm extends Component {
         }
       }).then(userInfo => this.props.signIn(userInfo)).catch(error => {
         if (error.message === "Username is already taken.") {
-          this.setState({alert:{message: `${this.state.username}: error.message`}, fetchError: true});
+          this.setState({alert:{message: `${this.state.username}: error.message`}, fetchError: true, lastBadUsername: this.state.username});
         } else {
           console.error("Error: ", error);
         }
