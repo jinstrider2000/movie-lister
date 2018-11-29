@@ -14,7 +14,6 @@ class SignInForm extends Component {
     if (this.formInputRef.current.props.validationState === "error" && !this.state.inputError) {
       this.setState({alert: {message: "Username must be between 6-12 characters long and alphanumeric."}, inputError: true, fetchError: false});
     } else if ((this.formInputRef.current.props.validationState === "success" || this.formInputRef.current.props.validationState === null) && this.state.inputError) {
-      console.log("fired");
       this.setState({alert: {message: ""}, inputError: false});
     }
   }
@@ -37,7 +36,7 @@ class SignInForm extends Component {
 
   handleRegister = () => {
     if (this.formInputRef.current.props.validationState === "success") {
-      fetch('/register', {method: "POST", body: {username: this.state.username}, headers: {'Content-Type': 'application/json'}}).then(resp => {
+      fetch('/register', {method: "POST", body: JSON.stringify({username: this.state.username}), headers: {'Content-Type': 'application/json'}}).then(resp => {
         if (resp.ok) {
           return resp.json();
         } else {
