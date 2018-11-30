@@ -54,7 +54,7 @@ class SignInForm extends Component {
         }
       }).then(userInfo => this.props.signIn(userInfo)).catch(error => {
         if (error.message === "Username is already taken.") {
-          this.setState({fetchErrorMessage: `${this.state.username}: error.message`, lastBadUsername: this.state.username});
+          this.setState({fetchErrorMessage: `${this.state.username}: ${error.message}`, lastBadUsername: this.state.username});
         } else {
           console.error("Error: ", error);
         }
