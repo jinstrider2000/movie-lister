@@ -12,7 +12,7 @@ class SignInForm extends Component {
 
   componentDidUpdate() {
     if (this.formInputRef.current.props.validationState === "error" && !this.state.currentErrorMessage){
-      if (!this.isValidFormat(this.state.username.length,this.state.username)) {
+      if (!this.isValidFormat()) {
         this.setState({currentErrorMessage: this.state.inputErrorMessage});
       } else {
         this.setState({currentErrorMessage: this.state.fetchErrorMessage});
@@ -26,16 +26,14 @@ class SignInForm extends Component {
     this.setState({[event.target.name]: event.target.value});
   }
 
-  isValidFormat = (length, content) => length >= 6 && length <= 12 && !content.match(/[^A-Za-z0-9]/);
+  isValidFormat = () => this.state.username.length >= 6 && this.state.username.length <= 12 && !this.state.username.match(/[^A-Za-z0-9]/);
 
   isEqualBadName = () => this.state.username === this.state.lastBadUsername;
 
   checkValidation = () => {
-    const length = this.state.username.length;
-    const content = this.state.username;
-    if (this.isValidFormat(length,content) && !this.isEqualBadName()) {
+    if (this.isValidFormat() && !this.isEqualBadName()) {
       return "success";
-    } else if (length > 0) {
+    } else if (this.state.username.length > 0) {
       return "error";
     } else {
       return null;
