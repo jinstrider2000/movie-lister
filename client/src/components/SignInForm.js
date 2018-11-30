@@ -42,7 +42,7 @@ class SignInForm extends Component {
 
   handleRegister = () => {
     if (this.formInputRef.current.props.validationState === "success") {
-      fetch('/register', {method: "POST", body: JSON.stringify({username: this.state.username}), headers: {'Content-Type': 'application/json'}}).then(resp => {
+      fetch('/register', {method: "POST", body: JSON.stringify({user:{username: this.state.username}}), headers: {'Content-Type': 'application/json'}}).then(resp => {
         if (resp.ok) {
           return resp.json();
         } else {

@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
 
   def create
-    user = User.create(user_params)
-    if user.persisted?
+    user = User.new(user_params)
+    if user.valid?
+      user.save
       render json: user, status: 201
-    elsif user.errors.get(:username).include?("has already been taken")
+    elsif user.errors[:username].include?("has already been taken")
       head :forbidden
     else
       head :bad_request
@@ -23,7 +24,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-      params.permit(:username)
+    params.require(:user).permit(:username)
   end
 
 end
