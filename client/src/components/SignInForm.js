@@ -6,30 +6,34 @@ import {FormGroup, FormControl, ControlLabel, Button, Alert} from 'react-bootstr
 class SignInForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {username: "", alertMessage: "", fetchError: false, inputError: false, lastBadUsername: ""};
+    this.state = {username: "", inputErrorMessage: "Username must be between 6-12 characters long and alphanumeric.", fetchErrorMessage: "", currentErrorMessage: null, lastBadUsername: null};
     this.formInputRef = React.createRef();
   }
 
   componentDidUpdate() {
-    if (this.formInputRef.current.props.validationState === "error" && !this.state.inputError) {
-      this.setState({alertMessage: "Username must be between 6-12 characters long and alphanumeric.", inputError: true});
-    } else if ((this.formInputRef.current.props.validationState === "success" || this.formInputRef.current.props.validationState === null) && this.state.inputError) {
-      this.setState({alertMessage: "", inputError: false});
+    if (this.formInputRef.current.props.validationState === "error" && !this.state.currentErrorMessage){
+      if (!this.isValidFormat(this.state.username.length,this.state.username)) {
+        this.setState({currentErrorMessage: this.state.inputErrorMessage});
+      } else {
+        this.setState({currentErrorMessage: this.state.fetchErrorMessage});
+      }
+    } else if ((this.formInputRef.current.props.validationState === "success" || this.formInputRef.current.props.validationState === null) && this.state.currentErrorMessage) {
+      this.setState({currentErrorMessage: null});
     }
   }
 
   handleInput = (event) => {
-    if (this.state.fetchError && event.target.value !== this.state.lastBadUsername) {
-      this.setState({[event.target.name]: event.target.value, fetchError: false});
-    } else {
     this.setState({[event.target.name]: event.target.value});
-    }
   }
+
+  isValidFormat = (length, content) => length >= 6 && length <= 12 && !content.match(/[^A-Za-z0-9]/);
+
+  isEqualBadName = () => this.state.username === this.state.lastBadUsername;
 
   checkValidation = () => {
     const length = this.state.username.length;
     const content = this.state.username;
-    if (length >= 6 && length <= 12 && !content.match(/[^A-Za-z0-9]/)) {
+    if (this.isValidFormat(length,content) && !this.isEqualBadName()) {
       return "success";
     } else if (length > 0) {
       return "error";
@@ -52,7 +56,7 @@ class SignInForm extends Component {
         }
       }).then(userInfo => this.props.signIn(userInfo)).catch(error => {
         if (error.message === "Username is already taken.") {
-          this.setState({alertMessage: `${this.state.username}: error.message`, fetchError: true, lastBadUsername: this.state.username});
+          this.setState({fetchErrorMessage: `${this.state.username}: error.message`, lastBadUsername: this.state.username});
         } else {
           console.error("Error: ", error);
         }
@@ -69,8 +73,7 @@ class SignInForm extends Component {
           throw new Error("Username not found.");
         }
       }).then(userInfo => this.props.signIn(userInfo)).catch(error => {
-        console.error("Error: ", error);
-        this.setState({alertMessage: `${this.state.username}: ${error.message}`, fetchError: true});
+        this.setState({fetchErrorMessage: `${this.state.username}: ${error.message}`, lastBadUsername: this.state.username});
       });
     }
   }
@@ -83,7 +86,7 @@ class SignInForm extends Component {
             <ControlLabel>Username</ControlLabel>
             <FormControl type="text" name="username" onChange={this.handleInput} value={this.state.username}/>
           </FormGroup>
-          {this.state.fetchError || this.state.inputError ? <Alert bsStyle="danger"><p>{this.state.alertMessage}</p></Alert>: null}
+          {this.state.currentErrorMessage ? <Alert bsStyle="danger"><p>{this.state.currentErrorMessage}</p></Alert>: null}
           <Button className="form-button" bsSize="large" onClick={this.handleLogin}>Sign In</Button>
           <Button className="form-button" onClick={this.handleRegister}>Register</Button>
         </form>
