@@ -19,7 +19,6 @@ class HistoryContainer extends Component {
       output = <img id="loading-main" src={loadingGif} alt="loading..."/>
     } else if (this.props.retrieved && this.props.history.length > 0 ) {
       output = <React.Fragment>
-          <h2>History</h2>
           <HistoryList deleteHistory={this.props.removeHistory} history={this.props.history} userId={this.props.userId}/>
         </React.Fragment>
     } else if (this.props.retrieved && this.props.history.length === 0) {

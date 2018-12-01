@@ -84,15 +84,18 @@ main {
   top: 0;
   right: 0;
   font-size: 16px;
+  padding: 5px;
 }
 
 .movie-preview-delete:hover {
   cursor: pointer;
   background-color: red;
+  border: 1px solid black;
 }
 
 .movie-preview-delete:active {
   background-color: brown;
+  border: 1px solid black;
 }
 
 .movie-slide-in {

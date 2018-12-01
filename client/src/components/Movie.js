@@ -15,7 +15,10 @@ class Movie extends Component {
   }
 
   getMovieInfo = () => {
-    client.get({id: this.props.match.params.imdbId}).then(movieInfo => this.setState({info: movieInfo, loading: false, error: false})).catch(error => this.setState({loading: false, info: {}, error: true, errorMessage: error.message}));
+    client.get({id: this.props.match.params.imdbId}).then(movieInfo => {
+      this.setState({info: movieInfo, loading: false, error: false});
+      this.props.addHistory(this.props.userId, movieInfo);
+    }).catch(error => this.setState({loading: false, info: {}, error: true, errorMessage: error.message}));
   }
   
   componentDidMount() {

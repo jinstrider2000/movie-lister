@@ -14,7 +14,7 @@ class HistoryItemsController < ApplicationController
 
   def destroy
     user = User.find_by(id: params[:user_id])
-    history_item = user ? user.history_items.find_by(imdbid: params[:imdbid]) : nil
+    history_item = user ? user.history_items.find_by(id: params[:id]) : nil
     if user && history_item
       history_item.destroy
       head :ok
