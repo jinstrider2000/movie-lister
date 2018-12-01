@@ -1,25 +1,21 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import HistoryList from '../components/HistoryList';
-import {loadHistory, removeHistory} from '../actions/historyActions';
+import {startLoad, loadHistory, removeHistory} from '../actions/historyActions';
 import loadingGif from '../assets/images/loading.gif';
 
 class HistoryContainer extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {loading: true}
-  }
-
   componentDidMount() {
     if (!this.props.retrieved) {
-      this.props.loadHistory(this.props.userId);
+      this.props.startLoad();
+      this.props.loadHistory(this.props.userId, this);
     }
   }
   
   render() {
     let output
-    if(this.state.loading){
+    if(this.props.loading) {
       output = <img id="loading-main" src={loadingGif} alt="loading..."/>
     } else if (this.props.retrieved && this.props.history.length > 0 ) {
       output = <React.Fragment>
@@ -43,14 +39,18 @@ const mapStateToProps = (state) => {
   return {
     userId: state.user.id,
     history: state.historyInfo.history,
-    retrieved: state.historyInfo.retrieved
+    retrieved: state.historyInfo.retrieved,
+    loaded: state.historyInfo.loading
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadHistory: (userId) => {
-      dispatch(loadHistory(userId));
+    startLoad: () => {
+      dispatch(startLoad());
+    },
+    loadHistory: (userId, component) => {
+      dispatch(loadHistory(userId,component));
     },
     removeHistory: (userId, historyId) => {
       dispatch(removeHistory(userId, historyId));

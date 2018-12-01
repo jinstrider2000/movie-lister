@@ -1,7 +1,10 @@
-const loadHistory = (userId) => {
+const startLoad = () => ({type: "START_LOAD"});
+
+const loadHistory = (userId, component) => {
   return (
     (dispatch) => {
       fetch(`/users/${userId}/history`).then(response => {
+        component.setState({loading: false});
         if(response.ok) {
           return response.json();
         } else {
@@ -16,7 +19,7 @@ const addHistory = (userId, {title, imdbid, poster, year}) => {
   return (
     (dispatch, getState) => {
       if (!getState().historyInfo.history.find(historyItem => historyItem.imdbid === imdbid)) {
-        fetch(`/users/${userId}/history`, {method: "POST", body: {title, imdbid, poster, year} , headers: {'Content-Type': 'application/json'}}).then(response => {
+        fetch(`/users/${userId}/history`, {method: "POST", body: JSON.stringify({title, imdbid, poster, year}) , headers: {'Content-Type': 'application/json'}}).then(response => {
           if (response.status === 201) {
             return response.json();
           } else if (response.status === 200) {
@@ -48,4 +51,4 @@ const removeHistory = (userId, historyId) => {
   )
 };
 
-export {loadHistory, addHistory, removeHistory};
+export {startLoad, loadHistory, addHistory, removeHistory};
