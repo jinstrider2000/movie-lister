@@ -9,7 +9,7 @@ const Home = (props) => {
         <Jumbotron>
           <h1>Discover the Movies!</h1>
           <PicCarousel/>
-          <img src={searchIcon} alt="magnifying glass search" style={{width:"200px", height:"200px"}}/>
+          <img id="magnifying-glass-icon" src={searchIcon} alt="magnifying glass search"/>
           <h2>Look up ANY movie and view information from IMDb</h2>
         </Jumbotron>
       </div>

@@ -27,7 +27,7 @@ main {
   overflow-y: auto;
   overflow-x: hidden;
   color: rgba(0, 0, 0, 0);
-  z-index: 1;
+  z-index: 2;
 }
 
 #brand-reel {
@@ -79,12 +79,19 @@ main {
   font-family: "Black Han Sans", sans-serif;
 }
 
+.movie-preview-container {
+  position: relative;
+}
+
 .movie-preview-delete {
   position: absolute;
   top: 0;
   right: 0;
   font-size: 16px;
   padding: 5px;
+  margin-right: 12.5%;
+  opacity: 0;
+  z-index: 1;
 }
 
 .movie-preview-delete:hover {
@@ -150,6 +157,11 @@ main {
   height: 447px;
 }
 
+#magnifying-glass-icon {
+  width: 40%;
+  height: 40%;
+}
+
 .error-message {
   color: red;
 }
@@ -166,6 +178,10 @@ main {
 .movie-preview-link, .movie-preview-link:active, .movie-preview-link:hover, .movie-preview-link:visited {
   color: black;
   text-decoration: none;
+}
+
+.fade-out {
+  animation: opacity-fade-in .5s linear reverse forwards;
 }
 
 .carousel-pic {
@@ -238,11 +254,20 @@ main {
     width: 60%;
   }
 
+  .movie-preview-delete {
+    margin-right: 20%;
+  }
+
   .jumbotron {
     width: 60%;
   }
 
   #sign-in-container {
     width: 50%;
+  }
+
+  #magnifying-glass-icon {
+    width: 200px;
+    height: 200px;
   }
 }

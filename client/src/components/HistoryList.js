@@ -5,7 +5,7 @@ import MoviePreview from './MoviePreview';
 
 const HistoryList = ({history,deleteHistory,userId}) => (
 <Grid fluid>
-  {history.map((historyItem) => <Row key={historyItem.id} ><Link to={`/movie/${historyItem.imdbid}`} className="movie-preview-link"><MoviePreview info={historyItem} deleteProp={true} handleDeleteClick={deleteHistory.bind(null,userId,historyItem.id)}/></Link></Row>)}
+  {history.map((historyItem) => <Row key={historyItem.id}><div id={`history-${historyItem.id}`} className="movie-preview-container"><span className="movie-preview-delete movie-preview-slide-in" onClick={deleteHistory.bind(null,userId,historyItem.id)}>X</span><Link to={`/movie/${historyItem.imdbid}`} className="movie-preview-link"><MoviePreview info={historyItem}/></Link></div></Row>)}
 </Grid>
 )
 

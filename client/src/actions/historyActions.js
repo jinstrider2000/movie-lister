@@ -42,7 +42,7 @@ const removeHistory = (userId, historyId) => {
     (dispatch) => {
       fetch(`/users/${userId}/history/${historyId}`, {method: "DELETE"}).then(response => {
         if (response.ok) {
-          dispatch({type: "DELETE_HISTORY", id: historyId});
+          dispatch({type: "REMOVE_HISTORY", id: historyId});
         } else {
           throw new Error("User or history item not found");
         }

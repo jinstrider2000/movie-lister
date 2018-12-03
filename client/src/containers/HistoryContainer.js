@@ -12,6 +12,11 @@ class HistoryContainer extends Component {
       this.props.loadHistory(this.props.userId, this);
     }
   }
+
+  removeHistoryEntry = (userId, historyId) => {
+    document.getElementById(`history-${historyId}`).classList.add("fade-out");
+    setTimeout(this.props.removeHistory.bind(null, userId, historyId), 600);
+  }
   
   render() {
     let output
@@ -19,7 +24,7 @@ class HistoryContainer extends Component {
       output = <img id="loading-main" src={loadingGif} alt="loading..."/>
     } else if (this.props.retrieved && this.props.history.length > 0 ) {
       output = <React.Fragment>
-          <HistoryList deleteHistory={this.props.removeHistory} history={this.props.history} userId={this.props.userId}/>
+          <HistoryList deleteHistory={this.removeHistoryEntry} history={this.props.history} userId={this.props.userId}/>
         </React.Fragment>
     } else if (this.props.retrieved && this.props.history.length === 0) {
       output = <h3>No History</h3>

@@ -41,7 +41,7 @@ class SignInForm extends Component {
   }
 
   handleRegister = () => {
-    if (this.formInputRef.current.props.validationState === "success") {
+    if (this.formInputRef.current.props.validationState === "success" || (this.state.currentErrorMessage === "Username not found.")) {
       fetch('/register', {method: "POST", body: JSON.stringify({user:{username: this.state.username}}), headers: {'Content-Type': 'application/json'}}).then(resp => {
         if (resp.ok) {
           return resp.json();
@@ -54,7 +54,7 @@ class SignInForm extends Component {
         }
       }).then(userInfo => this.props.signIn(userInfo)).catch(error => {
         if (error.message === "Username is already taken.") {
-          this.setState({fetchErrorMessage: `${this.state.username}: ${error.message}`, lastBadUsername: this.state.username});
+          this.setState({fetchErrorMessage: error.message, lastBadUsername: this.state.username});
         } else {
           console.error("Error: ", error);
         }
@@ -63,7 +63,7 @@ class SignInForm extends Component {
   }
 
   handleLogin = () => {
-    if (this.formInputRef.current.props.validationState === "success") {
+    if (this.formInputRef.current.props.validationState === "success" || (this.state.currentErrorMessage === "Username is already taken.")) {
       fetch(`/sign-in?username=${this.state.username}`).then(resp => {
         if (resp.ok) {
           return resp.json();
@@ -71,7 +71,7 @@ class SignInForm extends Component {
           throw new Error("Username not found.");
         }
       }).then(userInfo => this.props.signIn(userInfo)).catch(error => {
-        this.setState({fetchErrorMessage: `${this.state.username}: ${error.message}`, lastBadUsername: this.state.username});
+        this.setState({fetchErrorMessage: error.message, lastBadUsername: this.state.username});
       });
     }
   }
