@@ -8,9 +8,9 @@ const loadHistory = (userId, component) => {
         if(response.ok) {
           return response.json();
         } else {
-          throw new Error('User not found');
+          throw new Error("Sorry, an error occurred.");
         }
-      }).then(historyList => dispatch({type: "LOAD_HISTORY", payload: historyList})).catch(error => console.error('Error: ', error));
+      }).then(historyList => dispatch({type: "LOAD_HISTORY", payload: historyList})).catch(error => dispatch({type: "LOAD_ERROR", message: error.message}));
     }
   )
 };

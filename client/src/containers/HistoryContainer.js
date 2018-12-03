@@ -28,8 +28,10 @@ class HistoryContainer extends Component {
         </React.Fragment>
     } else if (this.props.retrieved && this.props.history.length === 0) {
       output = <h3>No History</h3>
+    } else if (this.props.error) {
+      output = <h3 className="error-message">{this.props.errorMessage}</h3>
     } else {
-      output = <h3 className="error-message">Sorry, an error occurred</h3>
+      output = null;
     }
     return (
       <div id="history-container" className={this.props.searchHappening() ? "main-abs-ps-back background-fade" : ""}>
@@ -44,7 +46,9 @@ const mapStateToProps = (state) => {
     userId: state.user.id,
     history: state.historyInfo.history,
     retrieved: state.historyInfo.retrieved,
-    loaded: state.historyInfo.loading
+    loaded: state.historyInfo.loading,
+    error: state.historyInfo.error,
+    errorMessage: state.historyInfo.errorMessage
   }
 }
 

@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {signIn} from '../actions/authenicationActions';
+import {alertSuccess} from '../actions/alertActions';
+import {Redirect} from 'react-router-dom';
 import {FormGroup, FormControl, ControlLabel, Button, Alert} from 'react-bootstrap';
 
 class SignInForm extends Component {
@@ -11,14 +13,18 @@ class SignInForm extends Component {
   }
 
   componentDidUpdate() {
-    if (this.formInputRef.current.props.validationState === "error" && !this.state.currentErrorMessage){
-      if (!this.isValidFormat()) {
-        this.setState({currentErrorMessage: this.state.inputErrorMessage});
-      } else {
-        this.setState({currentErrorMessage: this.state.fetchErrorMessage});
+    if (!this.props.signedIn) {
+      if (this.formInputRef.current.props.validationState === "error" && !this.state.currentErrorMessage){
+        if (!this.isValidFormat()) {
+          this.setState({currentErrorMessage: this.state.inputErrorMessage});
+        } else {
+          this.setState({currentErrorMessage: this.state.fetchErrorMessage});
+        }
+      } else if ((this.formInputRef.current.props.validationState === "success" || this.formInputRef.current.props.validationState === null) && this.state.currentErrorMessage) {
+        this.setState({currentErrorMessage: null});
       }
-    } else if ((this.formInputRef.current.props.validationState === "success" || this.formInputRef.current.props.validationState === null) && this.state.currentErrorMessage) {
-      this.setState({currentErrorMessage: null});
+    } else {
+      this.props.alertSuccess(`Welcome back, ${this.props.username}!`)
     }
   }
 
@@ -77,19 +83,30 @@ class SignInForm extends Component {
   }
 
   render() {
-    return (
-      <div id="sign-in-container">
-        <form>
-          <FormGroup ref={this.formInputRef} controlId="input-username" validationState={this.checkValidation()}>
-            <ControlLabel>Username</ControlLabel>
-            <FormControl type="text" name="username" onChange={this.handleInput} value={this.state.username}/>
-          </FormGroup>
-          {this.state.currentErrorMessage ? <Alert bsStyle="danger"><p>{this.state.currentErrorMessage}</p></Alert>: null}
-          <Button className="form-button" bsSize="large" onClick={this.handleLogin}>Sign In</Button>
-          <Button className="form-button" onClick={this.handleRegister}>Register</Button>
-        </form>
-      </div>
-    )
+    if (this.props.signedIn) {
+      return <Redirect to="/"/>
+    } else {
+      return (
+        <div id="sign-in-container">
+          <form>
+            <FormGroup ref={this.formInputRef} controlId="input-username" validationState={this.checkValidation()}>
+              <ControlLabel>Username</ControlLabel>
+              <FormControl type="text" name="username" onChange={this.handleInput} value={this.state.username}/>
+            </FormGroup>
+            {this.state.currentErrorMessage ? <Alert bsStyle="danger"><p>{this.state.currentErrorMessage}</p></Alert>: null}
+            <Button className="form-button" bsSize="large" onClick={this.handleLogin}>Sign In</Button>
+            <Button className="form-button" onClick={this.handleRegister}>Register</Button>
+          </form>
+        </div>
+      ); 
+    }
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    signedIn: state.user.signedIn,
+    username: state.user.username
   }
 }
 
@@ -97,8 +114,11 @@ const mapDispatchToProps = (dispatch) => {
   return {
     signIn: (userInfo) => {
       dispatch(signIn(userInfo));
+    },
+    alertSuccess: (message) => {
+      dispatch(alertSuccess(message));
     }
   }
 }
 
-export default connect(null,mapDispatchToProps)(SignInForm)
+export default connect(mapStateToProps,mapDispatchToProps)(SignInForm)
