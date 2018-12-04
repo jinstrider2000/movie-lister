@@ -14,7 +14,7 @@
 !/tmp/.keep
 
 .byebug_history
-
+/node_modules
 /.vscode
 /client/node_modules
 /client/.env.local
