@@ -83,8 +83,9 @@ class SignInForm extends Component {
   }
 
   render() {
+    const redirectRoute = this.props.location.state.from || "/"
     if (this.props.signedIn) {
-      return <Redirect to="/"/>
+      return  <Redirect to={redirectRoute}/>
     } else {
       return (
         <div id="sign-in-container">

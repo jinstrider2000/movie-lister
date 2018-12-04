@@ -30,6 +30,11 @@ main {
   z-index: 2;
 }
 
+#app-alert {
+  border-radius: 0px;
+  font-size: 16px;
+}
+
 #brand-reel {
   width: 20px;
   height: 15px;

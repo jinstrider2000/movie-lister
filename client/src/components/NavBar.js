@@ -3,16 +3,17 @@ import {connect} from 'react-redux';
 import SearchBar from './SearchBar';
 import {signOut} from '../actions/authenicationActions';
 import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
-import {Link, Redirect, withRouter} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import {LinkContainer} from 'react-router-bootstrap';
+import {alertSuccess} from '../actions/alertActions';
 import brandReel from '../assets/images/brand_reel.png';
 
 class NavBar extends Component {
 
   handleSignOut = (event) => {
     event.preventDefault();
+    this.props.alertSuccess("You've signed out, come back soon!")
     this.props.signOut();
-    return <Redirect to="/"/>;
   }
 
   render() {
@@ -64,6 +65,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     signOut: () => {
       dispatch(signOut());
+    },
+    alertSuccess: (message) => {
+      dispatch(alertSuccess(message));
     }
   }
 }
