@@ -4,7 +4,8 @@
   "private": true,
   "proxy": "http://localhost:3001/",
   "engines": {
-    "node": "8.11.1"
+    "node": "8.11.1",
+    "yarn": "1.12.3"
   },
   "dependencies": {
     "react": "^16.5.2",
@@ -21,9 +22,8 @@
     "redux-persist": "5.10.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "build": "yarn --cwd client install && yarn --cwd client build",
+    "deploy": "cp -a client/build/. public/",
+    "heroku-postbuild": "yarn build && yarn deploy"
   }
 }
