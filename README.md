@@ -37,7 +37,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/jinstr
 
 ## Version Changes
 
-None
+1/20/19: Started updated for Top 10 listing feature.
 
 ## License
 
